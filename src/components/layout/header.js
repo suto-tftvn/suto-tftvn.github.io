@@ -30,11 +30,10 @@ export default function Header() {
           <Typography variant="h6" className={classes.title}>
             Logo
           </Typography>
-          {/* <Link to="/">Home</Link> -
-          <Link to="/about">About</Link> -
-          <Link to="/users">Users</Link> */}
-          <Button color="secondary" variant="outlined">Home</Button>
-          <Button>Home</Button>
+          <Button color="primary" variant="contained">Home</Button>
+          <Button color="primary" variant="contained">Home</Button>
+          <Button color="primary" variant="contained">Home</Button>
+          <Button color="primary" variant="contained">Home</Button>
         </Toolbar>
       </AppBar>
     </div>

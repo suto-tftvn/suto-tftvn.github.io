@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -8,14 +8,15 @@ import {
   Link
 } from "react-router-dom";
 import Layout from '../src/components/layout/layout'
+import TeamComps from './pages/team_comps'
 
 function App() {
   return (
     <Router>
       <Layout>
         <Switch>
-          <Route path="/about">
-            <h1>about</h1>
+          <Route path="/team-comps">
+            <TeamComps/>
           </Route>
           <Route path="/users">
             <h1>users</h1>
