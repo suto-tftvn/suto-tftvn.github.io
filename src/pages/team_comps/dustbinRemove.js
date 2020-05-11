@@ -1,19 +1,19 @@
-import React from "react";
+import React, { useState, Children } from "react";
 import { useDrop } from "react-dnd";
 import ItemTypes from "./ItemTypes";
 const style = {
-  height: "12rem",
-  width: "12rem",
+  // height: "12rem",
+  // width: "12rem",
   marginRight: "1.5rem",
   marginBottom: "1.5rem",
-  color: "white",
-  padding: "1rem",
-  textAlign: "center",
-  fontSize: "1rem",
-  lineHeight: "normal",
-  float: "left",
+  color: "red",
+  // padding: "1rem",
+  // textAlign: "center",
+  // fontSize: "1rem",
+  // lineHeight: "normal",
+  // float: "left",
 };
-const Dustbin = (props) => {
+const DustbinRemove = (props) => {
   const [{ canDrop, isOver }, drop] = useDrop({
     accept: ItemTypes.BOX,
     drop: props.onDrop,
@@ -31,8 +31,9 @@ const Dustbin = (props) => {
   }
   return (
     <div ref={drop} style={{ ...style, backgroundColor }}>
-      {props.name}
+      {isActive ? 'Release to drop' : 'Drag a box here'}
+      {props.children}
     </div>
   );
 };
-export default Dustbin;
+export default DustbinRemove;
