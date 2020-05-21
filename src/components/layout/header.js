@@ -30,10 +30,12 @@ export default function Header() {
           <Typography variant="h6" className={classes.title}>
             Logo
           </Typography>
-          <Button color="primary" variant="contained">Home</Button>
-          <Button color="primary" variant="contained">Home</Button>
-          <Button color="primary" variant="contained">Home</Button>
-          <Button color="primary" variant="contained">Home</Button>
+          <Button color="secondary" variant="contained">Đội hình</Button>
+          <Button color="secondary" variant="contained">Roll Giả lập</Button>
+          <Button color="secondary" variant="contained">Tướng</Button>
+          <Button color="secondary" variant="contained">Trang bị</Button>
+          <Button color="secondary" variant="contained">Thư viện</Button>
+          <Button color="secondary" variant="contained">Changelog</Button>
         </Toolbar>
       </AppBar>
     </div>

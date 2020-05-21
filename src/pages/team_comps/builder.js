@@ -4,11 +4,13 @@ import Box from "./box";
 import Dustbin from "./dustbin";
 import DustbinRemove from "./dustbinRemove";
 import update from "immutability-helper";
+import {champions} from "../../until/constant/champions";
 const style = {
   width: "100%",
 };
 
 export default function Builder() {
+  console.log(champions);
   const [dustbins,setDustbins] = useState([
     {name:null,type:1},
     {name:null,type:1},

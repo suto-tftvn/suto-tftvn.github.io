@@ -3,12 +3,16 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import Header from "./header";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import blue from "@material-ui/core/colors/blue";
+import green from "@material-ui/core/colors/green";
+import lightBlue from "@material-ui/core/colors/lightBlue";
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: blue[500],
+      main: green[700],
+    },
+    secondary: {
+      main: lightBlue[600]
     }
   },
 });
