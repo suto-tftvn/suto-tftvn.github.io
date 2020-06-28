@@ -7,10 +7,13 @@ import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 // import IconButton from '@material-ui/core/IconButton';
 // import MenuIcon from '@material-ui/icons/Menu';
+// import { Redirect } from 'react-router';
+import { useRouter } from "../../until/hook/useRouter"
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    height:'64px'
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -18,10 +21,28 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  menuItem: {
+    color: '#fff',
+    textDecoration: 'none',
+    fontSize: 'larger',
+    fontWeight: '300',
+    height: '60px',
+    padding: '0 18px',
+    lineHeight: '60px',
+    "&:hover": {
+      backgroundColor: '#2196f3',
+      textDecoration: 'underline',
+    }
+  },
+  menuItemActive: {
+    borderBottom: '4px solid #2196f3',
+  }
 }));
 
-export default function Header() {
+export default function Header(props) {
   const classes = useStyles();
+  const router = useRouter();
+  console.log(router);
 
   return (
     <div className={classes.root}>
@@ -34,7 +55,7 @@ export default function Header() {
           <Button color="secondary" variant="contained">Roll Giả lập</Button>
           <Button color="secondary" variant="contained">Tướng</Button>
           <Button color="secondary" variant="contained">Trang bị</Button>
-          <Button color="secondary" variant="contained">Thư viện</Button>
+          <Link className={classes.menuItem + ' ' +classes.menuItemActive} to='/thu-vien'>Thư viện</Link>
           <Button color="secondary" variant="contained">Changelog</Button>
         </Toolbar>
       </AppBar>
