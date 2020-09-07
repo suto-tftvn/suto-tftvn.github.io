@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 'larger',
     fontWeight: '300',
     height: '60px',
-    padding: '0 18px',
+    padding: '4px 18px',
     lineHeight: '60px',
     "&:hover": {
       backgroundColor: '#2196f3',
@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   menuItemActive: {
+    paddingBottom: '0px',
     borderBottom: '4px solid #2196f3',
   }
 }));
@@ -42,21 +43,24 @@ const useStyles = makeStyles((theme) => ({
 export default function Header(props) {
   const classes = useStyles();
   const router = useRouter();
-  console.log(router);
+  console.log(router.pathname);
 
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            Logo
+            TFTVN
           </Typography>
-          <Button color="secondary" variant="contained">Đội hình</Button>
-          <Button color="secondary" variant="contained">Roll Giả lập</Button>
-          <Button color="secondary" variant="contained">Tướng</Button>
-          <Button color="secondary" variant="contained">Trang bị</Button>
-          <Link className={classes.menuItem + ' ' +classes.menuItemActive} to='/thu-vien'>Thư viện</Link>
-          <Button color="secondary" variant="contained">Changelog</Button>
+          {/* <Button color="secondary" variant="contained">Đội hình</Button> */}
+          {/* <Button color="secondary" variant="contained">Roll Giả lập</Button> */}
+          {/* <Button color="secondary" variant="contained">Tướng</Button> */}
+          {/* <Button color="secondary" variant="contained">Trang bị</Button> */}
+          <Link className={classes.menuItem} to='/thu-vien'>Thư viện</Link>
+          <Link className={classes.menuItem} to='/thu-vien'>Thư viện</Link>
+          <Link className={classes.menuItem} to='/thu-vien'>Thư viện</Link>
+          <Link className={classes.menuItem + ' ' +(router.pathname == '/thu-vien' ? classes.menuItemActive : null)} to='/thu-vien'>Thư viện</Link>
+          {/* <Button color="secondary" variant="contained">Changelog</Button> */}
         </Toolbar>
       </AppBar>
     </div>

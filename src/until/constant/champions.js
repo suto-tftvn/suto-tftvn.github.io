@@ -1,8 +1,18 @@
 export const champions = [
     {
         cost: 2,
-        origin: '123',
-        class: '321',
-        avatar: 'Ezreal.png'
+        origin: [1,2],
+        class: [3],
+        avatar: 'Ezreal.png',
+        name:'ez1',
+        item:[]
+    },
+    {
+        cost: 2,
+        origin: [1],
+        class: [3,4],
+        avatar: 'Ezreal.png',
+        name:'ez2',
+        item:[]
     }
 ]
