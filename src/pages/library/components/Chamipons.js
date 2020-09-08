@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import {champions} from '../../../until/constant/champions';
 import TitleContent from './TitleContent';
-import {getOriginName,getOriginIcon} from '../../../until/until';
+import {getOriginName,getOriginIcon} from '../../../until/common';
 import OriginPopover from '../../../components/popover/OriginPopover'
 
 const StyledTableCell = withStyles((theme) => ({
@@ -113,16 +113,16 @@ export default function Champions(props) {
                                 <StyledTableCell width="30%">
                                     {
                                         item.origin.map((sub_item,index) => (
-                                            <OriginPopover>
+                                            <OriginPopover origins={sub_item || 0}>
                                                 <div className={classes.descriptionWrapperBuff}>
-                                                    <img src={'/img/origins/'+getOriginIcon(1)} alt="icon_origin"/>
-                                                    <div className={classes.nameOrigin}>{getOriginName(1)}</div>
+                                                    <img src={'/img/origins/'+getOriginIcon(sub_item)} alt="icon_origin"/>
+                                                    <div className={classes.nameOrigin}>{getOriginName(sub_item)}</div>
                                                 </div>
                                             </OriginPopover>
                                         ))
                                     }
                                 </StyledTableCell>
-                                <StyledTableCell>
+                                <StyledTableCell width="20%">
                                     {item.cost}
                                 </StyledTableCell>
                             </StyledTableRow>
