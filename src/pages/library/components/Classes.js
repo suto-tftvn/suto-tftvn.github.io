@@ -36,14 +36,6 @@ const StyledTableRow = withStyles((theme) => ({
 const useStyles = makeStyles((theme) => ({
     root: {
     },
-    // title: {
-    //     // borderBottom: '1px solid #90caf9',
-    //     fontSize: '18px',
-    //     fontWeight: 'bold',
-    //     marginBottom: '5px',
-    //     padding: '10px',
-    //     backgroundImage: 'linear-gradient(-135deg, rgba(0,0,0,0), rgba(0,0,0,0), #90caf9)'
-    // },
     iconWrapper: {
         display: 'flex',
         alignItems: 'center',
@@ -78,7 +70,7 @@ export default function Classes(props) {
     }
     return (
         <div className={classes.root}>
-            {/* <TitleContent title='Danh sách các hệ' onSearch={onSearch}/> */}
+            <TitleContent title='Danh sách các hệ' onSearch={onSearch}/>
             <TableContainer>
                 <Table className={classes.table} aria-label="customized table">
                     <TableHead>

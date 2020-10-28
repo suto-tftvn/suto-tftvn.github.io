@@ -37,29 +37,44 @@ const useStyles = makeStyles((theme) => ({
   menuItemActive: {
     paddingBottom: '0px',
     borderBottom: '4px solid #2196f3',
+  },
+  logo: {
+    textDecoration: 'none',
+    color: '#fff'
   }
 }));
 
 export default function Header(props) {
   const classes = useStyles();
   const router = useRouter();
-  console.log(router.pathname);
+  console.log(router);
+  const checkRouter = (checkText) => {
+    let res = false;
+    let pathname = router.pathname;
+    if(pathname.indexOf(checkText)!==-1){
+      res = true;
+    }
+    return res
+  }
 
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            TFTVN
+            <Link to='/' className={classes.logo}>
+              TFTVN
+            </Link>
           </Typography>
           {/* <Button color="secondary" variant="contained">Đội hình</Button> */}
           {/* <Button color="secondary" variant="contained">Roll Giả lập</Button> */}
           {/* <Button color="secondary" variant="contained">Tướng</Button> */}
           {/* <Button color="secondary" variant="contained">Trang bị</Button> */}
-          <Link className={classes.menuItem} to='/thu-vien'>Thư viện</Link>
-          <Link className={classes.menuItem} to='/thu-vien'>Thư viện</Link>
-          <Link className={classes.menuItem} to='/thu-vien'>Thư viện</Link>
-          <Link className={classes.menuItem + ' ' +(router.pathname == '/thu-vien' ? classes.menuItemActive : null)} to='/thu-vien'>Thư viện</Link>
+          <Link className={classes.menuItem} to='/thu-vien'>Đội hình</Link>
+          <Link className={classes.menuItem + ' ' +(checkRouter('/xep-team') ? classes.menuItemActive : '')} to='/xep-team'>Xếp team</Link>
+          <Link className={classes.menuItem} to='/thu-vien'>Tướng</Link>
+          <Link className={classes.menuItem + ' ' +(checkRouter('/trang-bi') ? classes.menuItemActive : '')} to='/trang-bi'>Trang bị</Link>
+          <Link className={classes.menuItem + ' ' +(checkRouter('/thu-vien') ? classes.menuItemActive : '')} to='/thu-vien/tuong'>Thư viện</Link>
           {/* <Button color="secondary" variant="contained">Changelog</Button> */}
         </Toolbar>
       </AppBar>

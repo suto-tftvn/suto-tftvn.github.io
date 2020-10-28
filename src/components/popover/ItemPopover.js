@@ -2,7 +2,7 @@ import React, { Fragment, useEffect } from "react";
 import Popover from "@material-ui/core/Popover";
 // import Typography from '@material-ui/core/Typography';
 import { makeStyles } from "@material-ui/core/styles";
-import { getOrigin } from "../../until/common";
+import { getItem } from "../../until/common";
 
 const useStyles = makeStyles((theme) => ({
   popover: {
@@ -22,32 +22,35 @@ const useStyles = makeStyles((theme) => ({
     borderBottom: "1px #689f38 solid",
     "& img": {
       marginRight: "10px",
+      border: '2px #a2cf6e solid',
+      borderRadius: '10px',
     },
     paddingBottom: "5px",
     fontWeight: "bold",
     fontSize: "18px",
   },
-  descriptionWrapper: {
-    textAlign: 'justify'
-  },
-  descriptionWrapperBuff: {
-      display: 'flex',
-      alignItems: 'center',
-  },
-  activeNumberItem: {
-      padding: '4px 10px',
-      border: '1px #90caf9 solid',
-      margin: '10px',
-  },
   unitsBlock: {
-    borderTop: "1px #689f38 solid",
+    borderTop: "1px #689f38 solid"
+  },
+  listItemWrapper: {
+    display: 'flex',
+    flexWrap: 'wrap'
+  },
+  itemImage: {
+      border: '2px #a2cf6e solid',
+      borderRadius: '10px',
+      margin: '5px 5px 0 0'
+  },
+  descriptionItem: {
+    margin: '5px',
+    textAlign: "justify"
   }
 }));
 
-export default function OriginPopover(props) {
+export default function ItemPopover(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [dataOrigin, setOrigin] = React.useState({});
+  const [dataItem, setItemInfo] = React.useState({});
 
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -58,9 +61,9 @@ export default function OriginPopover(props) {
   };
 
   useEffect(() => {
-    if (props.origins !== 0) {
-      let newData = getOrigin(props.origins);
-      setOrigin(newData);
+    if (props.item_id !== 0) {
+      let newData = getItem(props.item_id);
+      setItemInfo(newData);
     }
   }, []);
 
@@ -98,37 +101,50 @@ export default function OriginPopover(props) {
         <div className={classes.content}>
           <div className={classes.title}>
             <img
-              style={{ filter: "brightness(0.5)" }}
+              width="40px"
               src={
-                dataOrigin && dataOrigin.icon
-                  ? "/img/origins/" + dataOrigin.icon
+                dataItem && dataItem.img
+                  ? dataItem.img
                   : "Unknow"
               }
-              alt="icon_origin"
+              alt="icon_item"
             />
-            {dataOrigin && dataOrigin.name ? dataOrigin.name : "Unknow"}
+            <div>
+              {dataItem && dataItem.name ? dataItem.name : "Unknow"}
+              <div>Chỉ số</div>
+            </div>
           </div>
-          <div>
-            {dataOrigin && dataOrigin.active && dataOrigin.active.length > 1 ? (
-              <div>
-                <div className={classes.descriptionWrapper}>
-                  {dataOrigin.description}
+          <div className={classes.descriptionItem}>
+              {dataItem.description}
+          </div>
+          <div className={classes.unitsBlock}>
+            {
+              dataItem.type === 'base' ? (
+                <div className={classes.listItemWrapper}>
+                  {
+                    dataItem.citem.map((sub_item, index) => (
+                      <div>
+                        <img width="30px" className={classes.itemImage} src={getItem(sub_item).img} alt="img-item"/>
+                      </div>
+                    ))
+                  }
                 </div>
-                {dataOrigin.active.map((sub_item, index) => (
-                  <div className={classes.descriptionWrapperBuff}>
-                    <div className={classes.activeNumberItem}>{sub_item}</div>
-                    <div>{dataOrigin.effect[index]}</div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className={classes.descriptionWrapperBuff}>
-                <div className={classes.activeNumberItem}>{(dataOrigin && dataOrigin.active) && dataOrigin.active[0]}</div>
-                <div>{dataOrigin.description}</div>
-              </div>
-            )}
+              ) : null
+            }
+            {
+              dataItem.type === 'combinedItem' ? (
+                <div className={classes.listItemWrapper}>
+                  {
+                    dataItem.bitem.map((sub_item, index) => (
+                      <div>
+                        <img width="35px" className={classes.itemImage} src={getItem(sub_item).img} alt="img-item"/>
+                      </div>
+                    ))
+                  }
+                </div>
+              ) : null
+            }
           </div>
-          <div className={classes.unitsBlock}>Tướng : </div>
         </div>
       </Popover>
     </Fragment>

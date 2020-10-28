@@ -2,7 +2,7 @@ import React, { Fragment, useEffect } from "react";
 import Popover from "@material-ui/core/Popover";
 // import Typography from '@material-ui/core/Typography';
 import { makeStyles } from "@material-ui/core/styles";
-import { getOrigin } from "../../until/common";
+import { getClass } from "../../until/common";
 
 const useStyles = makeStyles((theme) => ({
   popover: {
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 export default function OriginPopover(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [dataOrigin, setOrigin] = React.useState({});
+  const [dataClass, setClass] = React.useState({});
 
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -58,9 +58,9 @@ export default function OriginPopover(props) {
   };
 
   useEffect(() => {
-    if (props.origins !== 0) {
-      let newData = getOrigin(props.origins);
-      setOrigin(newData);
+    if (props.class !== 0) {
+      let newData = getClass(props.class);
+      setClass(newData);
     }
   }, []);
 
@@ -100,31 +100,31 @@ export default function OriginPopover(props) {
             <img
               style={{ filter: "brightness(0.5)" }}
               src={
-                dataOrigin && dataOrigin.icon
-                  ? "/img/origins/" + dataOrigin.icon
+                dataClass && dataClass.icon
+                  ? "/img/classes/" + dataClass.icon
                   : "Unknow"
               }
-              alt="icon_origin"
+              alt="icon_class"
             />
-            {dataOrigin && dataOrigin.name ? dataOrigin.name : "Unknow"}
+            {dataClass && dataClass.name ? dataClass.name : "Unknow"}
           </div>
           <div>
-            {dataOrigin && dataOrigin.active && dataOrigin.active.length > 1 ? (
+            {dataClass && dataClass.active && dataClass.active.length > 1 ? (
               <div>
                 <div className={classes.descriptionWrapper}>
-                  {dataOrigin.description}
+                  {dataClass.description}
                 </div>
-                {dataOrigin.active.map((sub_item, index) => (
+                {dataClass.active.map((sub_item, index) => (
                   <div className={classes.descriptionWrapperBuff}>
                     <div className={classes.activeNumberItem}>{sub_item}</div>
-                    <div>{dataOrigin.effect[index]}</div>
+                    <div>{dataClass.effect[index]}</div>
                   </div>
                 ))}
               </div>
             ) : (
               <div className={classes.descriptionWrapperBuff}>
-                <div className={classes.activeNumberItem}>{(dataOrigin && dataOrigin.active) && dataOrigin.active[0]}</div>
-                <div>{dataOrigin.description}</div>
+                <div className={classes.activeNumberItem}>{(dataClass && dataClass.active) && dataClass.active[0]}</div>
+                <div>{dataClass.description}</div>
               </div>
             )}
           </div>

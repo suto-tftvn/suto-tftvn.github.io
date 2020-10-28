@@ -8,8 +8,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import {champions} from '../../../until/constant/champions';
 import TitleContent from './TitleContent';
-import {getOriginName,getOriginIcon} from '../../../until/common';
+import {getOriginName,getOriginIcon,getClassName,getClassIcon} from '../../../until/common';
 import OriginPopover from '../../../components/popover/OriginPopover'
+import ClassPopover from '../../../components/popover/ClassPopover'
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -38,14 +39,6 @@ const StyledTableRow = withStyles((theme) => ({
 const useStyles = makeStyles((theme) => ({
     root: {
     },
-    // title: {
-    //     // borderBottom: '1px solid #90caf9',
-    //     fontSize: '18px',
-    //     fontWeight: 'bold',
-    //     marginBottom: '5px',
-    //     padding: '10px',
-    //     backgroundImage: 'linear-gradient(-135deg, rgba(0,0,0,0), rgba(0,0,0,0), #90caf9)'
-    // },
     iconWrapper: {
         display: 'flex',
         alignItems: 'center',
@@ -56,6 +49,9 @@ const useStyles = makeStyles((theme) => ({
     descriptionWrapperBuff: {
         display: 'flex',
         alignItems: 'center',
+        '& img': {
+            filter: "brightness(0.5)"
+        }
     },
     nameOrigin: {
         padding:'0 10px'
@@ -102,11 +98,13 @@ export default function Champions(props) {
                                 </StyledTableCell>
                                 <StyledTableCell width="30%">
                                     {
-                                        item.origin.map((sub_item,index) => (
+                                        item.class.map((sub_item,index) => (
+                                            <ClassPopover class={sub_item || 0}>
                                             <div className={classes.descriptionWrapperBuff}>
-                                                <img src={'/img/origins/'+getOriginIcon(1)} alt="icon_origin"/>
-                                                <div className={classes.nameOrigin}>{getOriginName(1)}</div>
+                                                <img src={'/img/classes/'+getClassIcon(sub_item)} alt="icon_class"/>
+                                                <div className={classes.nameOrigin}>{getClassName(sub_item)}</div>
                                             </div>
+                                            </ClassPopover>
                                         ))
                                     }
                                 </StyledTableCell>

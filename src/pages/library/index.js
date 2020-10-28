@@ -18,10 +18,8 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 export default function Library(props) {
-    console.log(props);
     const classes = useStyles();
     const router = useRouter();
-    console.log(router);
 
     return (
         <div className={classes.root}>

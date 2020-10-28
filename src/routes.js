@@ -1,12 +1,14 @@
 
 import React, { Component } from 'react';
 import Layout from '../src/components/layout/layout'
-import TeamComps from './pages/team_comps'
+import TeamComps from './pages/team_builder'
 import Home from './pages/home'
 import Library from './pages/library'
 import Champions from './pages/library/components/Chamipons'
 import Origins from './pages/library/components/Origins'
 import Classes from './pages/library/components/Classes'
+import Items from './pages/library/components/Items'
+import Item from './pages/item'
 import { renderRoutes } from 'react-router-config'
 
 export const routes = [
@@ -23,19 +25,23 @@ export const routes = [
                 component: Library,
                 routes: [
                     {
-                        path: '/thu-vien/champions',
+                        path: '/thu-vien/tuong',
                         component: Champions
                     },
                     {
-                        path: '/thu-vien/origins',
+                        path: '/thu-vien/he',
                         component: Origins
                     },
                     {
-                        path: '/thu-vien/classes',
+                        path: '/thu-vien/toc',
                         component: Classes
                     },
+                    {
+                        path: '/thu-vien/trang-bi',
+                        component: Items
+                    },
                     // {
-                    //     path: '/thu-vien/*',
+                    //     path: '/',
                     //     // to: '/thu-vien/champions'
                     //     component: Champions
                     // },
@@ -50,6 +56,10 @@ export const routes = [
                 //         component: GrandChild
                 //     }
                 // ]
+            },
+            {
+                path: '/trang-bi',
+                component: Item,
             }
         ]
     }
