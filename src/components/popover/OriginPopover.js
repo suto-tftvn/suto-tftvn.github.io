@@ -115,7 +115,7 @@ export default function OriginPopover(props) {
                   {dataOrigin.description}
                 </div>
                 {dataOrigin.active.map((sub_item, index) => (
-                  <div className={classes.descriptionWrapperBuff}>
+                  <div className={classes.descriptionWrapperBuff} key={'data-origin-popover-'+index}>
                     <div className={classes.activeNumberItem}>{sub_item}</div>
                     <div>{dataOrigin.effect[index]}</div>
                   </div>

@@ -38,7 +38,7 @@ const mapItem = [
   [1, 18, 0, 0, 0, 0, 0, 0, 0, 0],
 ];
 
-export default function Item(props) {
+export default function Champion(props) {
   const classes = useStyles();
   const [itemChosen, setItemChosen] = useState(null);
 
@@ -50,8 +50,9 @@ export default function Item(props) {
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={4}>
-          {itemChosen && (
+        <Grid item xs={12} sm={3}>
+        <h1>Fillter</h1>
+          {/* {itemChosen && (
             <Grid container spacing={0}>
               <Grid item sm={2}>
                 <LazyLoad height={45}>
@@ -127,10 +128,11 @@ export default function Item(props) {
                 </Grid>
               )}
             </Grid>
-          )}
+          )} */}
         </Grid>
-        <Grid item xs={12} sm={8} style={{ borderLeft: "1px solid #90caf9" }}>
-          {mapItem.map((item, index) => {
+        <Grid item xs={12} sm={9} style={{ borderLeft: "1px solid #90caf9" }}>
+            <h1>unknow</h1>
+          {/* {mapItem.map((item, index) => {
             return (
               <Grid container spacing={1} key={"item-row-" + index}>
                 {mapItem[index].map((item2, index2) => {
@@ -154,7 +156,7 @@ export default function Item(props) {
                 })}
               </Grid>
             );
-          })}
+          })} */}
         </Grid>
       </Grid>
     </div>

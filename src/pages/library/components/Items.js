@@ -97,7 +97,6 @@ export default function Items(props) {
                     </TableHead>
                     <TableBody>
                         {data.map((item) => {
-                            // let x =  getOrigin(1);
                             return (
                             <StyledTableRow key={'item_'+item.id}>
                                 <StyledTableCell component="th" scope="row" width="15%">
@@ -116,19 +115,8 @@ export default function Items(props) {
                                         {
                                             item.type === 'base' ?
                                             item.citem.map((sub_item,index) => (
-                                                <ItemPopover item_id={sub_item || 0}>
+                                                <ItemPopover item_id={sub_item || 0} key={'item-base-popover-'+index}>
                                                     <div>
-                                                        {/* <LazyLoadImage
-                                                            alt={'img-item'}
-                                                            height={64}
-                                                            src={getItem(sub_item).img} // use normal <img> attributes as props
-                                                            width={64}
-                                                            effect="blur"
-                                                            className={classes.itemImage}
-                                                            afterLoad={() => {
-                                                                console.log('loaded',sub_item);
-                                                            }} 
-                                                        /> */}
                                                         <LazyLoad height={64}>
                                                             <img className={classes.itemImage} src={getItem(sub_item).img} alt="img-item"/>
                                                         </LazyLoad>
@@ -139,12 +127,11 @@ export default function Items(props) {
                                     </div>
                                 </StyledTableCell>
                                 <StyledTableCell width="25%">
-                                    {/* {item.cost} */}
                                     <div className={classes.itemsWrapper}>
                                         {
                                             item.type === 'combinedItem' ?
                                             item.bitem.map((sub_item,index) => (
-                                                <ItemPopover item_id={sub_item || 0}>
+                                                <ItemPopover item_id={sub_item || 0} key={'item-combind-popover-'+index}>
                                                     <div>
                                                         <LazyLoad height={64}>
                                                             <img className={classes.itemImage} src={getItem(sub_item).img} alt="img-item"/>

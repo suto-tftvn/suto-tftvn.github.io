@@ -86,10 +86,9 @@ export default function Champions(props) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {data.map((item) => {
-                            // let x =  getOrigin(1);
+                        {data.map((item,index) => {
                             return (
-                            <StyledTableRow key={'origin_'+item.id}>
+                            <StyledTableRow key={'origin_'+index}>
                                 <StyledTableCell component="th" scope="row" width="20%">
                                     <div className={classes.iconWrapper}>
                                         <img alt="avatar-chamipon" src={'/img/classes/c_1.png'}/>
@@ -99,7 +98,7 @@ export default function Champions(props) {
                                 <StyledTableCell width="30%">
                                     {
                                         item.class.map((sub_item,index) => (
-                                            <ClassPopover class={sub_item || 0}>
+                                            <ClassPopover class={sub_item || 0} key={'class-popover-'+index}>
                                             <div className={classes.descriptionWrapperBuff}>
                                                 <img src={'/img/classes/'+getClassIcon(sub_item)} alt="icon_class"/>
                                                 <div className={classes.nameOrigin}>{getClassName(sub_item)}</div>
@@ -111,7 +110,7 @@ export default function Champions(props) {
                                 <StyledTableCell width="30%">
                                     {
                                         item.origin.map((sub_item,index) => (
-                                            <OriginPopover origins={sub_item || 0}>
+                                            <OriginPopover origins={sub_item || 0} key={'origin-popover-'+index}>
                                                 <div className={classes.descriptionWrapperBuff}>
                                                     <img src={'/img/origins/'+getOriginIcon(sub_item)} alt="icon_origin"/>
                                                     <div className={classes.nameOrigin}>{getOriginName(sub_item)}</div>

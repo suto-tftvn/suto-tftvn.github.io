@@ -47,12 +47,12 @@ const useStyles = makeStyles((theme) => ({
 export default function Header(props) {
   const classes = useStyles();
   const router = useRouter();
-  console.log(router);
   const checkRouter = (checkText) => {
     let res = false;
     let pathname = router.pathname;
-    if(pathname.indexOf(checkText)!==-1){
-      res = true;
+    let arrPath = pathname.split('/');
+    if(checkText.indexOf(arrPath[1])!==-1){
+        res = true;
     }
     return res
   }
@@ -72,7 +72,7 @@ export default function Header(props) {
           {/* <Button color="secondary" variant="contained">Trang bị</Button> */}
           <Link className={classes.menuItem} to='/thu-vien'>Đội hình</Link>
           <Link className={classes.menuItem + ' ' +(checkRouter('/xep-team') ? classes.menuItemActive : '')} to='/xep-team'>Xếp team</Link>
-          <Link className={classes.menuItem} to='/thu-vien'>Tướng</Link>
+          <Link className={classes.menuItem + ' ' +(checkRouter('/tuong') ? classes.menuItemActive : '')} to='/tuong'>Tướng</Link>
           <Link className={classes.menuItem + ' ' +(checkRouter('/trang-bi') ? classes.menuItemActive : '')} to='/trang-bi'>Trang bị</Link>
           <Link className={classes.menuItem + ' ' +(checkRouter('/thu-vien') ? classes.menuItemActive : '')} to='/thu-vien/tuong'>Thư viện</Link>
           {/* <Button color="secondary" variant="contained">Changelog</Button> */}

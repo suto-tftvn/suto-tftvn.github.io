@@ -123,7 +123,7 @@ export default function ItemPopover(props) {
                 <div className={classes.listItemWrapper}>
                   {
                     dataItem.citem.map((sub_item, index) => (
-                      <div>
+                      <div key={'item-base-'+index}>
                         <img width="30px" className={classes.itemImage} src={getItem(sub_item).img} alt="img-item"/>
                       </div>
                     ))
@@ -136,7 +136,7 @@ export default function ItemPopover(props) {
                 <div className={classes.listItemWrapper}>
                   {
                     dataItem.bitem.map((sub_item, index) => (
-                      <div>
+                      <div key={'item-combind-'+index}>
                         <img width="35px" className={classes.itemImage} src={getItem(sub_item).img} alt="img-item"/>
                       </div>
                     ))

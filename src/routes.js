@@ -9,6 +9,7 @@ import Origins from './pages/library/components/Origins'
 import Classes from './pages/library/components/Classes'
 import Items from './pages/library/components/Items'
 import Item from './pages/item'
+import Champion from './pages/champion'
 import { renderRoutes } from 'react-router-config'
 
 export const routes = [
@@ -60,6 +61,10 @@ export const routes = [
             {
                 path: '/trang-bi',
                 component: Item,
+            },
+            {
+                path: '/tuong',
+                component: Champion,
             }
         ]
     }

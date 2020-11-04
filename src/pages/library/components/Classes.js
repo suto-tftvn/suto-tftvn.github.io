@@ -1,4 +1,4 @@
-import React, { Fragment,useState } from "react";
+import React, { Fragment,useState,useCallback } from "react";
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -58,19 +58,22 @@ export default function Classes(props) {
     const classes = useStyles();
     const [data,setData] = useState(classesUnit);
 
-    const onSearch = (val) => {
+    const onSearch = useCallback((val) => {
         let newData = classesUnit.filter((item) => {
             let val_reformat = val.toLowerCase();
-            if(item.searchText.indexOf(val_reformat)!=-1){
-                return item
+            let res = null;
+            if(item.searchText.indexOf(val_reformat) !== -1){
+                res = item
             }
+            return res
         });
         setData(newData);
         console.log(newData);
-    }
+      }, []);
+
     return (
         <div className={classes.root}>
-            <TitleContent title='Danh sách các hệ' onSearch={onSearch}/>
+            <TitleContent title='Danh sách các hệ' onChange={onSearch}/>
             <TableContainer>
                 <Table className={classes.table} aria-label="customized table">
                     <TableHead>
@@ -96,7 +99,7 @@ export default function Classes(props) {
                                             <div className={classes.descriptionWrapper}>{item.description}</div>
                                             {
                                                 item.active.map((sub_item,index) => (
-                                                    <div className={classes.descriptionWrapperBuff}>
+                                                    <div className={classes.descriptionWrapperBuff}  key={'des-class-buff-'+index}>
                                                         <div className={classes.activeNumberItem}>{sub_item}</div>
                                                         <div>{item.effect[index]}</div>
                                                     </div>

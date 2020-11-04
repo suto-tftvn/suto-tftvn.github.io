@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useCallback } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 // import Paper from '@material-ui/core/Paper';
 // import Grid from '@material-ui/core/Grid';
@@ -39,21 +39,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TitleContent(props) {
     const classes = useStyles();
-    const { title } = props;
+    const { title,onChange } = props;
 
     const [textSrearch, setTextSearch] = useState('');
-
-    const handleChangeSearch = (value) => {
-        // console.log(value);
-        setTextSearch(value);
-        props.onSearch(value);
-    }
 
     return (
         <div className={classes.root}>
             <div className={classes.title}>{title}</div>
             {
-                props.onSearch ?
+                onChange ?
                     <div className={classes.searchBox}>
                         <TextField
                             className={classes.textFieldSearch}
@@ -63,7 +57,7 @@ export default function TitleContent(props) {
                             fullWidth={true}
                             margin='dense'
                             value={textSrearch}
-                            onChange={(e) => handleChangeSearch(e.target.value)}
+                            onChange={(e) => {onChange(e.target.value);setTextSearch(e.target.value)}}
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
@@ -76,13 +70,13 @@ export default function TitleContent(props) {
                                             textSrearch ?
                                                 <IconButton
                                                     // aria-label="toggle password visibility"
-                                                    onClick={() => handleChangeSearch('')}
+                                                    onClick={() => {onChange('');setTextSearch('')}}
                                                     // onMouseDown={handleMouseDownPassword}
                                                     edge="end"
                                                     size="small"
                                                 >
                                                     <CloseIcon />
-                                                </IconButton> : null
+                                                </IconButton> : ''
                                         }
                                     </InputAdornment>
                                 )
