@@ -16,6 +16,7 @@ const theme = createMuiTheme({
       main: lightBlue[600]
     }
   },
+  greenPrimary: green[700]
 });
 
 export default function Layout(props) {
