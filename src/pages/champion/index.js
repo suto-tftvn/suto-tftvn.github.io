@@ -13,6 +13,8 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import Collapse from '@material-ui/core/Collapse';
+import {origins} from '../../until/constant/origins';
+import Avatar from '@material-ui/core/Avatar';
 var _ = require("lodash");
 
 const useStyles = makeStyles((theme) => ({
@@ -45,7 +47,12 @@ const useStyles = makeStyles((theme) => ({
     '&.active': {
       color: theme.greenPrimary,
     }
-  }
+  },
+  small: {
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+    filter: 'brightness(0.5)'
+  },
 }));
 
 // const mapItem = [
@@ -67,11 +74,40 @@ export default function Champion(props) {
   const classes = useStyles();
 
   const [filterStatus, setFilterStatus] = useState([true,true,true]);
+  const [listCostStatus, setListCostStatus] = useState([]);
+  const [listOriginStatus, setListOriginStatus] = useState([]);
+
+  const updateListStatus = {
+    cost: (newData) => {setListCostStatus(newData)},
+    origin: (newData) => {setListOriginStatus(newData)},
+  };
 
   const changeStatusFilter = (index) => {
     let newStatus = _.clone(filterStatus);
     newStatus[index] = !filterStatus[index];
     setFilterStatus(newStatus);
+  }
+
+  const changeStatusList = (id,type,old_data) => {
+    let newData = _.clone(old_data);
+    const index = newData.indexOf(id);
+    if(index !== -1){
+      newData.splice(index, 1);
+    } else {
+      newData.push(id);
+    }
+    updateListStatus[type](newData);
+  }
+
+  const checkStatusActive = (id,dataCheck) => {
+    let data = dataCheck;
+    if(data){
+      const index = data.indexOf(id);
+      if(index !== -1){
+        return true;
+      }
+    }
+    return false
   }
 
   return (
@@ -81,6 +117,7 @@ export default function Champion(props) {
           <div>
             <div className={classes.title}>Phân loại tướng</div>
             <div>
+              {/* Lọc theo giá */}
               <div>
                 <div className={classes.titleFilterOption + (filterStatus[0] ? " active" : "")} onClick={() => changeStatusFilter(0)}>
                   {filterStatus[0] ? <ArrowDropDownIcon/> : <ArrowRightIcon/>} Giá tiền
@@ -93,12 +130,40 @@ export default function Champion(props) {
                           <Button
                             variant="outlined"
                             key={"button-cost-"+item}
-                            // color="secondary"
+                            color={checkStatusActive(item,listCostStatus) ? "secondary" : "default"}
                             className={classes.button}
                             startIcon={<AttachMoneyIcon />}
                             size="small"
+                            onClick={() => changeStatusList(item,'cost',listCostStatus)}
                           >
                             {item} Tiền
+                          </Button>
+                        )
+                      })
+                    }
+                  </div>
+                </Collapse>
+              </div>
+              {/* Lọc theo tộc*/}
+              <div>
+                <div className={classes.titleFilterOption + (filterStatus[1] ? " active" : "")} onClick={() => changeStatusFilter(1)}>
+                  {filterStatus[1] ? <ArrowDropDownIcon/> : <ArrowRightIcon/>} Tộc
+                </div>
+                <Collapse in={filterStatus[1]}>
+                  <div>
+                    {
+                      origins.map((item,index) => {
+                        return(
+                          <Button
+                            variant="outlined"
+                            key={"button-origin-"+item.id}
+                            color={checkStatusActive(item.id,listOriginStatus) ? "secondary" : "default"}
+                            className={classes.button}
+                            startIcon={<Avatar src={"/img/origins/"+item.icon} className={classes.small}/>}
+                            size="small"
+                            onClick={() => changeStatusList(item.id,'origin',listOriginStatus)}
+                          >
+                            {item.name}
                           </Button>
                         )
                       })
