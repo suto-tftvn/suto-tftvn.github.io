@@ -1,4 +1,4 @@
-import React, { Fragment,useState } from "react";
+import React, { Fragment,useEffect,useState } from "react";
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -12,6 +12,7 @@ import TitleContent from './TitleContent';
 import ItemPopover from '../../../components/popover/ItemPopover'
 import {getItem} from '../../../until/common';
 import LazyLoad from 'react-lazyload';
+var _ = require("lodash");
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -70,7 +71,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Items(props) {
     const classes = useStyles();
-    const [data,setData] = useState(data_item);
+    const [data,setData] = useState([]);
+
+    useEffect(() => {
+        //re-sort data
+        let newData = _.sortBy(data_item, ['type', 'id']);
+        setData(newData);
+    },[])
 
     // const onSearch = (val) => {
     //     let newData = champions.filter((item) => {
@@ -102,13 +109,13 @@ export default function Items(props) {
                                 <StyledTableCell component="th" scope="row" width="15%">
                                     <div className={classes.iconWrapper}>
                                         <LazyLoad height={64}>
-                                            <img className={classes.itemImage} alt="avatar-item" src={item.img}/>
+                                            <img className={classes.itemImage} alt="avatar-item" src={'/img/items/'+item.icon}/>
                                         </LazyLoad>
                                         <div>{item.name}</div>
                                     </div>
                                 </StyledTableCell>
                                 <StyledTableCell width="20%">
-                                    {item.description}
+                                    {item.desc}
                                 </StyledTableCell>
                                 <StyledTableCell width="40%">
                                     <div className={classes.itemsWrapper}>
@@ -118,7 +125,7 @@ export default function Items(props) {
                                                 <ItemPopover item_id={sub_item || 0} key={'item-base-popover-'+index}>
                                                     <div>
                                                         <LazyLoad height={64}>
-                                                            <img className={classes.itemImage} src={getItem(sub_item).img} alt="img-item"/>
+                                                            <img className={classes.itemImage} src={'/img/items/'+getItem(sub_item).icon} alt="img-item"/>
                                                         </LazyLoad>
                                                     </div>
                                                 </ItemPopover>
@@ -134,7 +141,7 @@ export default function Items(props) {
                                                 <ItemPopover item_id={sub_item || 0} key={'item-combind-popover-'+index}>
                                                     <div>
                                                         <LazyLoad height={64}>
-                                                            <img className={classes.itemImage} src={getItem(sub_item).img} alt="img-item"/>
+                                                            <img className={classes.itemImage} src={'/img/items/'+getItem(sub_item).icon} alt="img-item"/>
                                                         </LazyLoad>
                                                     </div>
                                                 </ItemPopover>

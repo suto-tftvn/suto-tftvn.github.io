@@ -42,6 +42,10 @@ const useStyles = makeStyles((theme) => ({
     iconWrapper: {
         display: 'flex',
         alignItems: 'center',
+        '& img': {
+            width: '60px',
+            margin: '10px'
+        }
     },
     descriptionWrapper: {
         textAlign: 'justify'
@@ -63,18 +67,13 @@ export default function Champions(props) {
     const [data,setData] = useState(champions);
 
     const onSearch = (val) => {
-        let newData = champions.filter((item) => {
-            let val_reformat = val.toLowerCase();
-            if(item.searchText.indexOf(val_reformat)!=-1){
-                return item
-            }
-        });
+        let newData = champions.filter((item) => item.name.toLowerCase().indexOf(val.toLowerCase())!==-1);
         setData(newData);
-        console.log(newData);
+        // console.log(newData);
     }
     return (
         <div className={classes.root}>
-            <TitleContent title='Danh sách các tướng'/>
+            <TitleContent title='Danh sách các tướng' onChange={onSearch}/>
             <TableContainer>
                 <Table className={classes.table} aria-label="customized table">
                     <TableHead>
@@ -88,10 +87,10 @@ export default function Champions(props) {
                     <TableBody>
                         {data.map((item,index) => {
                             return (
-                            <StyledTableRow key={'origin_'+index}>
+                            <StyledTableRow key={'champion_'+index}>
                                 <StyledTableCell component="th" scope="row" width="20%">
                                     <div className={classes.iconWrapper}>
-                                        <img alt="avatar-chamipon" src={'/img/classes/c_1.png'}/>
+                                        <img alt="avatar-chamipon" src={'/img/champions/'+item.avt}/>
                                         <div>{item.name}</div>
                                     </div>
                                 </StyledTableCell>
@@ -120,7 +119,7 @@ export default function Champions(props) {
                                     }
                                 </StyledTableCell>
                                 <StyledTableCell width="20%">
-                                    {item.cost}
+                                    {item.stat.Cost}
                                 </StyledTableCell>
                             </StyledTableRow>
                         )})}

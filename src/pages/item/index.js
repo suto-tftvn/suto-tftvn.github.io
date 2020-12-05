@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 // import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -8,6 +8,8 @@ import Grid from "@material-ui/core/Grid";
 import { getItem } from "../../until/common";
 import LazyLoad from "react-lazyload";
 import ItemPopover from "../../components/popover/ItemPopover";
+import {data_item} from '../../until/constant/items';
+var _ = require("lodash");
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,10 +44,32 @@ export default function Item(props) {
   const classes = useStyles();
   const [itemChosen, setItemChosen] = useState(null);
 
+  const processData = async () => {
+    let list_base = _.filter(data_item, { 'type': 'base' });
+    console.log(list_base);
+    for(let i=8;i>-1;i--){
+      let x = [];
+      for(let j=0;j<(i);j++){
+        x.push([i,j]);
+        // console.log(getId([list_base[i].id,list_base[j].id]));
+      }
+      console.log(x);
+    }
+    return true;
+  }
+
+  const getId = (value) => {
+    console.log(value);
+    const found = data_item.find(element => _.isEqual(element.bitem.sort(), value.sort()));
+    return found;
+  }
+
   const choseItem = (item) => {
     console.log(getItem(item));
     setItemChosen(getItem(item));
   };
+
+  processData();
 
   return (
     <div className={classes.root}>
@@ -57,7 +81,7 @@ export default function Item(props) {
                 <LazyLoad height={45}>
                   <img
                     className={classes.itemImage}
-                    src={itemChosen.img}
+                    src={'/img/items/'+itemChosen.icon}
                     width="40px"
                     alt="img-item"
                   />
@@ -69,7 +93,7 @@ export default function Item(props) {
                 <b>Chỉ số</b>
               </Grid>
               <Grid item sm={12}>
-                {itemChosen.description}
+                {itemChosen.desc}
               </Grid>
               <hr />
               {itemChosen.type === "base" && (
@@ -84,7 +108,7 @@ export default function Item(props) {
                           <LazyLoad height={45}>
                             <img
                               className={classes.itemImage}
-                              src={getItem(item).img}
+                              src={'/img/items/'+getItem(item).icon}
                               width="90%"
                               alt="img-item"
                               onClick={() => choseItem(item)}
@@ -111,7 +135,7 @@ export default function Item(props) {
                           <LazyLoad height={45}>
                             <img
                               className={classes.itemImage}
-                              src={getItem(item).img}
+                              src={'/img/items/'+getItem(item).icon}
                               width="90%"
                               alt="img-item"
                               onClick={() => choseItem(item)}
@@ -141,7 +165,7 @@ export default function Item(props) {
                           <LazyLoad height={45}>
                             <img
                               className={classes.itemImage}
-                              src={getItem(item2).img}
+                              src={'/img/items/'+getItem(item2).icon}
                               width="100%"
                               alt="img-item"
                               onClick={() => choseItem(item2)}

@@ -109,24 +109,20 @@ export default function OriginPopover(props) {
             {dataOrigin && dataOrigin.name ? dataOrigin.name : "Unknow"}
           </div>
           <div>
-            {dataOrigin && dataOrigin.active && dataOrigin.active.length > 1 ? (
+            {dataOrigin && dataOrigin.active && 
               <div>
-                <div className={classes.descriptionWrapper}>
-                  {dataOrigin.description}
-                </div>
+                {
+                  dataOrigin.desc && <div className={classes.descriptionWrapper}>
+                    {dataOrigin.desc}
+                  </div>
+                }
                 {dataOrigin.active.map((sub_item, index) => (
-                  <div className={classes.descriptionWrapperBuff} key={'data-origin-popover-'+index}>
+                  <div className={classes.descriptionWrapperBuff}  key={'data-class-popover-'+index}>
                     <div className={classes.activeNumberItem}>{sub_item}</div>
                     <div>{dataOrigin.effect[index]}</div>
                   </div>
                 ))}
-              </div>
-            ) : (
-              <div className={classes.descriptionWrapperBuff}>
-                <div className={classes.activeNumberItem}>{(dataOrigin && dataOrigin.active) && dataOrigin.active[0]}</div>
-                <div>{dataOrigin.description}</div>
-              </div>
-            )}
+            </div>}
           </div>
           <div className={classes.unitsBlock}>Tướng : </div>
         </div>

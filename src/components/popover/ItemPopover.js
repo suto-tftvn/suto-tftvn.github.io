@@ -103,8 +103,8 @@ export default function ItemPopover(props) {
             <img
               width="40px"
               src={
-                dataItem && dataItem.img
-                  ? dataItem.img
+                dataItem && dataItem.icon
+                  ? '/img/items/'+dataItem.icon
                   : "Unknow"
               }
               alt="icon_item"
@@ -115,7 +115,7 @@ export default function ItemPopover(props) {
             </div>
           </div>
           <div className={classes.descriptionItem}>
-              {dataItem.description}
+              {dataItem.desc}
           </div>
           <div className={classes.unitsBlock}>
             {
@@ -124,7 +124,7 @@ export default function ItemPopover(props) {
                   {
                     dataItem.citem.map((sub_item, index) => (
                       <div key={'item-base-'+index}>
-                        <img width="30px" className={classes.itemImage} src={getItem(sub_item).img} alt="img-item"/>
+                        <img width="30px" className={classes.itemImage} src={'/img/items/'+getItem(sub_item).icon} alt="img-item"/>
                       </div>
                     ))
                   }
@@ -137,7 +137,7 @@ export default function ItemPopover(props) {
                   {
                     dataItem.bitem.map((sub_item, index) => (
                       <div key={'item-combind-'+index}>
-                        <img width="35px" className={classes.itemImage} src={getItem(sub_item).img} alt="img-item"/>
+                        <img width="35px" className={classes.itemImage} src={'/img/items/'+getItem(sub_item).icon} alt="img-item"/>
                       </div>
                     ))
                   }
