@@ -8,6 +8,9 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { origins } from "../../../until/constant/origins";
 import TitleContent from "./TitleContent";
+import ChampionPopover from '../../../components/popover/ChampionPopover';
+import {getChampions} from '../../../until/common';
+import LazyLoad from 'react-lazyload';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -51,6 +54,15 @@ const useStyles = makeStyles((theme) => ({
     border: "1px #90caf9 solid",
     margin: "10px",
   },
+  itemsWrapper: {
+    display:'flex',
+    flexWrap: 'wrap'
+  },
+  itemImage: {
+      border: '3px #a2cf6e solid',
+      // borderRadius: '10px',
+      margin: '5px'
+  }
 }));
 
 export default function Origins(props) {
@@ -113,7 +125,19 @@ export default function Origins(props) {
                     ))}
                   </div>
                 </StyledTableCell>
-                <StyledTableCell>{item.units.length}</StyledTableCell>
+                <StyledTableCell>
+                  <div className={classes.itemsWrapper}>
+                    {item.units.map((sub_item, index) => (
+                      <ChampionPopover id_champion={sub_item}>
+                        <div>
+                          <LazyLoad height={60} offset={100}>
+                            <img className={classes.itemImage} src={'/img/champions/'+getChampions(sub_item).avt} alt="img-item" width="60px"/>
+                          </LazyLoad>
+                        </div>
+                      </ChampionPopover>
+                    ))}
+                  </div>
+                </StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>

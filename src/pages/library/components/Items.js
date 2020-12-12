@@ -125,7 +125,7 @@ export default function Items(props) {
                                                 <ItemPopover item_id={sub_item || 0} key={'item-base-popover-'+index}>
                                                     <div>
                                                         <LazyLoad height={64}>
-                                                            <img className={classes.itemImage} src={'/img/items/'+getItem(sub_item).icon} alt="img-item"/>
+                                                            <img className={classes.itemImage} src={'/img/items/'+getItem(sub_item).icon} alt="img-item" width="64px"/>
                                                         </LazyLoad>
                                                     </div>
                                                 </ItemPopover>
@@ -141,7 +141,7 @@ export default function Items(props) {
                                                 <ItemPopover item_id={sub_item || 0} key={'item-combind-popover-'+index}>
                                                     <div>
                                                         <LazyLoad height={64}>
-                                                            <img className={classes.itemImage} src={'/img/items/'+getItem(sub_item).icon} alt="img-item"/>
+                                                            <img className={classes.itemImage} src={'/img/items/'+getItem(sub_item).icon} alt="img-item" width="64px"/>
                                                         </LazyLoad>
                                                     </div>
                                                 </ItemPopover>

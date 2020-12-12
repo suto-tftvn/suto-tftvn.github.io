@@ -1,6 +1,7 @@
 import {origins} from './constant/origins';
 import {classesUnit} from './constant/classes';
 import {data_item} from './constant/items';
+import {champions} from './constant/champions'
 
 export const getOrigin = (id_origin) => {
     // let res = '';
@@ -54,5 +55,10 @@ export const getClassIcon = (id_class) => {
 
 export const getItem = (id_item) => {
     const found = data_item.find(element => element.id === id_item);
+    return found;
+}
+
+export const getChampions = (id_item) => {
+    const found = champions.find(element => element.id === id_item);
     return found;
 }
