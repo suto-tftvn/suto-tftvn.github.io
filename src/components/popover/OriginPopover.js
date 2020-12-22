@@ -2,7 +2,7 @@ import React, { Fragment, useEffect } from "react";
 import Popover from "@material-ui/core/Popover";
 // import Typography from '@material-ui/core/Typography';
 import { makeStyles } from "@material-ui/core/styles";
-import { getOrigin } from "../../until/common";
+import { getOrigin,getChampions } from "../../until/common";
 
 const useStyles = makeStyles((theme) => ({
   popover: {
@@ -41,7 +41,31 @@ const useStyles = makeStyles((theme) => ({
   },
   unitsBlock: {
     borderTop: "1px #689f38 solid",
-  }
+    display:'flex',
+    paddingTop:'5px',
+    '& div':{
+      margin: '2px'
+    }
+  },
+  itemImage: {
+    border: '2px #a2cf6e solid',
+    borderRadius: '3px',
+    '&.cost_1':{
+      border: '2px #9e9e9e solid'
+    },
+    '&.cost_2':{
+      border: '2px #a2cf6e solid'
+    },
+    '&.cost_3':{
+      border: '2px #2196f3 solid'
+    },
+    '&.cost_4':{
+      border: '2px #e040fb solid'
+    },
+    '&.cost_5':{
+      border: '2px #e65100 solid'
+    },
+}
 }));
 
 export default function OriginPopover(props) {
@@ -124,7 +148,17 @@ export default function OriginPopover(props) {
                 ))}
             </div>}
           </div>
-          <div className={classes.unitsBlock}>Tướng : </div>
+          <div className={classes.unitsBlock}>
+            {dataOrigin && dataOrigin.units && dataOrigin.units.map((sub_item, index) => {
+                const dataChamp = getChampions(sub_item);
+                return (
+                  <div key={'avt_champion_'+index}>
+                    <img className={classes.itemImage+' cost_'+dataChamp.stat.Cost} src={'/img/champions/'+dataChamp.avt} alt="avt-champion" width="40px"/>
+                  </div>
+                )
+              }
+            )}
+          </div>
         </div>
       </Popover>
     </Fragment>

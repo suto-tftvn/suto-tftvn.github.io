@@ -47,13 +47,13 @@ export default function Menu(props) {
                 Tướng
               </div>
             </Link>
-            <Link href="/thu-vien/he">
-            <div className={classes.item + (router.pathname === '/thu-vien/he' ? ' '+classes.selected : '')}>
+            <Link href="/thu-vien/toc">
+            <div className={classes.item + (router.pathname === '/thu-vien/toc' ? ' '+classes.selected : '')}>
               Tộc
               </div>
             </Link>
-            <Link href="/thu-vien/toc">
-            <div className={classes.item + (router.pathname === '/thu-vien/toc' ? ' '+classes.selected : '')}>
+            <Link href="/thu-vien/he">
+            <div className={classes.item + (router.pathname === '/thu-vien/he' ? ' '+classes.selected : '')}>
               Hệ
               </div>
               </Link>

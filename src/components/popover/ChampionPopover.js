@@ -2,7 +2,7 @@ import React, { Fragment, useEffect } from "react";
 import Popover from "@material-ui/core/Popover";
 // import Typography from '@material-ui/core/Typography';
 import { makeStyles } from "@material-ui/core/styles";
-import { getClass, getChampions } from "../../until/common";
+import { getClass, getOrigin, getChampions } from "../../until/common";
 
 const useStyles = makeStyles((theme) => ({
   popover: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     display: "flex",
-    alignItems: "center",
+    alignItems: "flex-start",
     borderBottom: "1px #689f38 solid",
     "& img": {
       marginRight: "10px",
@@ -41,6 +41,20 @@ const useStyles = makeStyles((theme) => ({
   },
   unitsBlock: {
     borderTop: "1px #689f38 solid",
+  },
+  originBlock: {
+    display: 'flex',
+    '& div': {
+      display: 'flex',
+      alignItems: 'center',
+      '&:last-child': {
+        marginLeft: '5px'
+      }
+    },
+    '& img': {
+      marginRight: '5px',
+      filter: 'brightness(0.5)'
+    }
   }
 }));
 
@@ -108,8 +122,29 @@ export default function ChampionPopover(props) {
               width="45px"
             />
             <div>
-                {dataChampion && dataChampion.name ? dataChampion.name : "Unknow"}
-                <div>Tộc/Hệ</div>
+                <p style={{margin:'0',marginTop:'-5px'}}>{dataChampion && dataChampion.name ? dataChampion.name : "Unknow"}</p>
+                <div>
+                  <div className={classes.originBlock}>
+                    {
+                      dataChampion && dataChampion.origin && dataChampion.origin.map((sub_item,index) => {
+                        let data_origin = getOrigin(sub_item);
+                        return (
+                          <div>
+                            <img src={"/img/origins/"+data_origin.icon} alt="icon_origin" width="20px"/>
+                            <span style={{fontSize:'12px'}}>{data_origin.name}</span>
+                          </div>
+                        )
+                      })
+                    }
+                  </div>
+                  {
+                    dataChampion && dataChampion.class && dataChampion.class.map((sub_item,index) => {
+                      return (
+                        <span>sub_item</span>
+                      )
+                    })
+                  }
+                </div>
             </div>
           </div>
           {/* <div>

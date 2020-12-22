@@ -44,8 +44,24 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         '& img': {
             width: '60px',
-            margin: '10px'
-        }
+            margin: '10px',
+            borderRadius: '5px'
+        },
+        '& .cost_1':{
+            border: '2px #9e9e9e solid'
+        },
+        '& .cost_2':{
+            border: '2px #a2cf6e solid'
+        },
+        '& .cost_3':{
+            border: '2px #2196f3 solid'
+        },
+        '& .cost_4':{
+            border: '2px #e040fb solid'
+        },
+        '& .cost_5':{
+            border: '2px #e65100 solid'
+        },
     },
     descriptionWrapper: {
         textAlign: 'justify'
@@ -90,7 +106,7 @@ export default function Champions(props) {
                             <StyledTableRow key={'champion_'+index}>
                                 <StyledTableCell component="th" scope="row" width="20%">
                                     <div className={classes.iconWrapper}>
-                                        <img alt="avatar-chamipon" src={'/img/champions/'+item.avt}/>
+                                        <img className={'cost_'+item.stat.Cost}  alt="avatar-chamipon" src={'/img/champions/'+item.avt}/>
                                         <div>{item.name}</div>
                                     </div>
                                 </StyledTableCell>
