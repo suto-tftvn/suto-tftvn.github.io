@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
     background: "#f1f8e9",
     padding: "10px",
     maxWidth: "420px",
+    minWidth:"250px"
   },
   title: {
     display: "flex",
@@ -44,15 +45,32 @@ const useStyles = makeStyles((theme) => ({
   },
   originBlock: {
     display: 'flex',
+    fontWeight: "normal",
     '& div': {
       display: 'flex',
       alignItems: 'center',
-      '&:last-child': {
-        marginLeft: '5px'
+      '&:first-child': {
+        marginRight: '5px'
       }
     },
     '& img': {
       marginRight: '5px',
+      filter: 'brightness(0.5)'
+    }
+  },
+  costBlock: {
+    display: 'flex',
+    alignItems: 'center',
+    position: 'absolute',
+    top: '5px',
+    right: '5px',
+    fontWeight: "normal",
+    '& span': {
+      display: 'flex',
+      alignItems: 'center',
+      width: '15px'
+    },
+    '& img': {
       filter: 'brightness(0.5)'
     }
   }
@@ -131,20 +149,27 @@ export default function ChampionPopover(props) {
                         return (
                           <div>
                             <img src={"/img/origins/"+data_origin.icon} alt="icon_origin" width="20px"/>
-                            <span style={{fontSize:'12px'}}>{data_origin.name}</span>
+                            <span style={{fontSize:'14px'}}>{data_origin.name}</span>
                           </div>
                         )
                       })
                     }
                   </div>
-                  {
-                    dataChampion && dataChampion.class && dataChampion.class.map((sub_item,index) => {
-                      return (
-                        <span>sub_item</span>
-                      )
-                    })
-                  }
+                  <div className={classes.originBlock}>
+                    {
+                      dataChampion && dataChampion.class && dataChampion.class.map((sub_item,index) => {
+                        let data_class = getClass(sub_item);
+                        return (
+                          <div>
+                            <img src={"/img/classes/"+data_class.icon} alt="icon_class" width="20px"/>
+                            <span style={{fontSize:'14px'}}>{data_class.name}</span>
+                          </div>
+                        )
+                      })
+                    }
+                  </div>
                 </div>
+                {dataChampion && dataChampion.stat && dataChampion.stat.Cost && <div className={classes.costBlock}><span><img src="/img/icon-gold.svg" alt="gold_icon" width="12px"/></span>{dataChampion.stat.Cost}</div>}
             </div>
           </div>
           {/* <div>
