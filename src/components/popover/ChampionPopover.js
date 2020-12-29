@@ -2,7 +2,7 @@ import React, { Fragment, useEffect } from "react";
 import Popover from "@material-ui/core/Popover";
 // import Typography from '@material-ui/core/Typography';
 import { makeStyles } from "@material-ui/core/styles";
-import { getClass, getOrigin, getChampions } from "../../until/common";
+import { getClass, getOrigin, getChampions, getItem } from "../../until/common";
 
 const useStyles = makeStyles((theme) => ({
   popover: {
@@ -42,6 +42,15 @@ const useStyles = makeStyles((theme) => ({
   },
   unitsBlock: {
     borderTop: "1px #689f38 solid",
+    '& .blockItem': {
+      display: 'flex',
+      padding: '5px 0 0',
+      '& img': {
+        marginRight: '5px',
+        border: '2px solid #a2cf6e ',
+        borderRadius: '5px'
+      }
+    }
   },
   originBlock: {
     display: 'flex',
@@ -73,6 +82,57 @@ const useStyles = makeStyles((theme) => ({
     '& img': {
       filter: 'brightness(0.5)'
     }
+  },
+  skillTitle:{
+    display: 'flex',
+    alignItems: 'flex-start',
+    marginTop: '5px',
+    '& div': {
+      marginLeft: '5px'
+    },
+    '& .skillName': {
+      margin: '0',
+      marginTop: '-5px',
+      fontSize: '16px',
+      fontWeight: '500',
+    },
+    '& .skillType': {
+      margin: 0,
+      fontSize: '14px'
+    }
+  },
+  skillDesc: {
+    margin: '0',
+    textAlign: 'justify',
+    fontSize: '12px',
+    fontStyle: 'italic'
+  },
+  skillEffect: {
+    fontSize: '14px',
+    margin: '0 0 5px',
+    '& p': {
+      margin: 0
+    }
+  },
+  statBlock: {
+    fontSize: '14px',
+    margin: '0 0 5px',
+    '& p': {
+      margin: 0
+    },
+    '& .rangeBlock': {
+      display:'flex', 
+      alignItems:'center',
+      '& .rangeSquare': {
+        width:'10px', 
+        height:'10px', 
+        border: '1px solid #2196f3',
+        marginLeft: '5px'
+      },
+      '& .rangeSquare.active': {
+        background: '#2196f3'
+      }
+    }
   }
 }));
 
@@ -97,6 +157,15 @@ export default function ChampionPopover(props) {
   }, []);
 
   const open = Boolean(anchorEl);
+
+  const renderRange = (range) => {
+    let result;
+    let arr_range = [1,1,1,1,1];
+    result = <div className='rangeBlock'>Tầm đánh: {
+      arr_range.map((item,index) => <div key={'range_square_'+index} className={index < range ? 'rangeSquare active' : 'rangeSquare'}></div>)
+    }</div>
+    return result
+  }
 
   return (
     <Fragment>
@@ -137,7 +206,7 @@ export default function ChampionPopover(props) {
                   : "Unknow"
               }
               alt="icon_class"
-              width="45px"
+              width="60px"
             />
             <div>
                 <p style={{margin:'0',marginTop:'-5px'}}>{dataChampion && dataChampion.name ? dataChampion.name : "Unknow"}</p>
@@ -147,7 +216,7 @@ export default function ChampionPopover(props) {
                       dataChampion && dataChampion.origin && dataChampion.origin.map((sub_item,index) => {
                         let data_origin = getOrigin(sub_item);
                         return (
-                          <div>
+                          <div key={'origin_'+index}>
                             <img src={"/img/origins/"+data_origin.icon} alt="icon_origin" width="20px"/>
                             <span style={{fontSize:'14px'}}>{data_origin.name}</span>
                           </div>
@@ -160,7 +229,7 @@ export default function ChampionPopover(props) {
                       dataChampion && dataChampion.class && dataChampion.class.map((sub_item,index) => {
                         let data_class = getClass(sub_item);
                         return (
-                          <div>
+                          <div key={'class_'+index}>
                             <img src={"/img/classes/"+data_class.icon} alt="icon_class" width="20px"/>
                             <span style={{fontSize:'14px'}}>{data_class.name}</span>
                           </div>
@@ -172,23 +241,51 @@ export default function ChampionPopover(props) {
                 {dataChampion && dataChampion.stat && dataChampion.stat.Cost && <div className={classes.costBlock}><span><img src="/img/icon-gold.svg" alt="gold_icon" width="12px"/></span>{dataChampion.stat.Cost}</div>}
             </div>
           </div>
-          {/* <div>
-            {dataChampion && dataChampion.active && 
+          <div>
+            {dataChampion && dataChampion.skill &&
               <div>
+                <div className={classes.skillTitle}>
+                  <img src={'/img/champions/skills/'+dataChampion.imgSkill} alt="icon-skill" width="32px"/>
+                  <div>
+                    <p className='skillName'>{dataChampion.skill.name}</p>
+                    <p className='skillType'>{dataChampion.skill.type}</p>
+                  </div>
+                </div>
+                <p className={classes.skillDesc}>{dataChampion.skill.des}</p>
+                <div className={classes.skillEffect}>
+                  {
+                    dataChampion.skill && dataChampion.skill.effects && dataChampion.skill.effects.map((sub_item,index) => <p key={'skill_effect_'+index}>{sub_item}</p>)
+                  }
+                </div>
+              </div>
+            }
+            {
+              dataChampion && dataChampion.stat &&
+              <div className={classes.statBlock}>
+                {/* <p>Tầm đánh: {dataChampion.stat && dataChampion.stat.Range && renderRange(dataChampion.stat.Range)}</p> */}
+                {/* <div></div> */}
+                {dataChampion.stat && dataChampion.stat.Range && renderRange(dataChampion.stat.Range)}
                 {
-                  dataChampion.desc && <div className={classes.descriptionWrapper}>
-                    {dataChampion.desc}
-                  </div>
+                  dataChampion.stat.Mana !== "0" && <p>Mana: {dataChampion.stat.Starting_Mana || 0}/{dataChampion.stat.Mana}</p>
                 }
-                {dataChampion.active.map((sub_item, index) => (
-                  <div className={classes.descriptionWrapperBuff}  key={'data-class-popover-'+index}>
-                    <div className={classes.activeNumberItem}>{sub_item}</div>
-                    <div>{dataChampion.effect[index]}</div>
+                <p>Máu: {dataChampion.stat.Health}</p>
+                <p>Dame: {dataChampion.stat.Damage}</p>
+                <p>DPS: {dataChampion.stat.DPS}</p>
+              </div>
+            }
+          </div>
+          <div className={classes.unitsBlock}>
+            Trang bị gợi ý: 
+            <div className={'blockItem'}>
+              {dataChampion && dataChampion.items && dataChampion.items.map((item, index) => {
+                  let item_info = getItem(item);
+                  return <div key={"recomend_item_"+index}>
+                    <img src={'/img/items/'+item_info.icon} alt="item_icon" width="40px"/>
                   </div>
-                ))}
-              </div>}
-          </div> */}
-          <div className={classes.unitsBlock}>Trang bị : </div>
+                })
+              }
+            </div>
+          </div>
         </div>
       </Popover>
     </Fragment>
