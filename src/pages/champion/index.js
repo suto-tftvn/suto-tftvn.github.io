@@ -14,6 +14,7 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import Collapse from '@material-ui/core/Collapse';
 import {origins} from '../../until/constant/origins';
+import {classesUnit} from '../../until/constant/classes';
 import Avatar from '@material-ui/core/Avatar';
 var _ = require("lodash");
 
@@ -51,22 +52,12 @@ const useStyles = makeStyles((theme) => ({
   small: {
     width: theme.spacing(3),
     height: theme.spacing(3),
-    filter: 'brightness(0.5)'
+    filter: 'brightness(0.2)',
+    '&.active': {
+      filter: 'invert(49%) sepia(46%) saturate(4083%) hue-rotate(186deg) brightness(101%) contrast(91%)'
+    }
   },
 }));
-
-// const mapItem = [
-//   [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-//   [9, 10, 19, 27, 34, 40, 44, 17, 18, 19],
-//   [8, 11, 20, 28, 35, 41, 44, 27, 28, 0],
-//   [7, 12, 21, 29, 36, 42, 44, 37, 0, 0],
-//   [6, 13, 22, 30, 37, 43, 44, 0, 0, 0],
-//   [5, 14, 23, 31, 38, 44, 0, 0, 0, 0],
-//   [4, 15, 24, 32, 39, 0, 0, 0, 0, 0],
-//   [3, 16, 25, 33, 0, 0, 0, 0, 0, 0],
-//   [2, 17, 26, 0, 0, 0, 0, 0, 0, 0],
-//   [1, 18, 0, 0, 0, 0, 0, 0, 0, 0],
-// ];
 
 const listTypeCost = [1,2,3,4,5]
 
@@ -76,10 +67,12 @@ export default function Champion(props) {
   const [filterStatus, setFilterStatus] = useState([true,true,true]);
   const [listCostStatus, setListCostStatus] = useState([]);
   const [listOriginStatus, setListOriginStatus] = useState([]);
+  const [listClassesStatus, setListClassesStatus] = useState([]);
 
   const updateListStatus = {
     cost: (newData) => {setListCostStatus(newData)},
     origin: (newData) => {setListOriginStatus(newData)},
+    classes: (newData) => {setListClassesStatus(newData)},
   };
 
   const changeStatusFilter = (index) => {
@@ -113,7 +106,7 @@ export default function Champion(props) {
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} sm={12}>
           <div>
             <div className={classes.title}>Phân loại tướng</div>
             <div>
@@ -159,9 +152,36 @@ export default function Champion(props) {
                             key={"button-origin-"+item.id}
                             color={checkStatusActive(item.id,listOriginStatus) ? "secondary" : "default"}
                             className={classes.button}
-                            startIcon={<Avatar src={"/img/origins/"+item.icon} className={classes.small}/>}
+                            startIcon={<Avatar src={"/img/origins/"+item.icon} className={checkStatusActive(item.id,listOriginStatus) ? classes.small+' active' : classes.small}/>}
                             size="small"
                             onClick={() => changeStatusList(item.id,'origin',listOriginStatus)}
+                          >
+                            {item.name}
+                          </Button>
+                        )
+                      })
+                    }
+                  </div>
+                </Collapse>
+              </div>
+              {/* Lọc theo Hệ*/}
+              <div>
+                <div className={classes.titleFilterOption + (filterStatus[2] ? " active" : "")} onClick={() => changeStatusFilter(2)}>
+                  {filterStatus[2] ? <ArrowDropDownIcon/> : <ArrowRightIcon/>} Hệ
+                </div>
+                <Collapse in={filterStatus[2]}>
+                  <div>
+                    {
+                      classesUnit.map((item,index) => {
+                        return(
+                          <Button
+                            variant="outlined"
+                            key={"button-classes-"+item.id}
+                            color={checkStatusActive(item.id,listClassesStatus) ? "secondary" : "default"}
+                            className={classes.button}
+                            startIcon={<Avatar src={"/img/classes/"+item.icon} className={checkStatusActive(item.id,listClassesStatus) ? classes.small+' active' : classes.small}/>}
+                            size="small"
+                            onClick={() => changeStatusList(item.id,'classes',listClassesStatus)}
                           >
                             {item.name}
                           </Button>
@@ -174,9 +194,17 @@ export default function Champion(props) {
             </div>
           </div>
         </Grid>
-        <Grid item xs={12} sm={8} style={{ borderLeft: "1px solid #90caf9" }}>
+        <Grid item xs={12} sm={4}>
           <div>
             <div className={classes.title}>Danh sách tướng</div>
+            <div>
+              123
+            </div>
+          </div>
+        </Grid>
+        <Grid item xs={12} sm={8} style={{ borderLeft: "1px solid #90caf9" }}>
+          <div>
+            <div className={classes.title}>Champion name</div>
             <div>
               123
             </div>

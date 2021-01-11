@@ -8,6 +8,9 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { classesUnit } from "../../../until/constant/classes";
 import TitleContent from "./TitleContent";
+import ChampionPopover from '../../../components/popover/ChampionPopover';
+import {getChampions} from '../../../until/common';
+import LazyLoad from 'react-lazyload';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -51,6 +54,30 @@ const useStyles = makeStyles((theme) => ({
     border: "1px #90caf9 solid",
     margin: "10px",
   },
+  itemsWrapper: {
+    display:'flex',
+    flexWrap: 'wrap'
+  },
+  itemImage: {
+      border: '2px #a2cf6e solid',
+      borderRadius: '5px',
+      margin: '5px',
+      '&.cost_1':{
+        border: '2px #9e9e9e solid'
+      },
+      '&.cost_2':{
+        border: '2px #a2cf6e solid'
+      },
+      '&.cost_3':{
+        border: '2px #2196f3 solid'
+      },
+      '&.cost_4':{
+        border: '2px #e040fb solid'
+      },
+      '&.cost_5':{
+        border: '2px #e65100 solid'
+      },
+  }
 }));
 
 export default function Classes(props) {
@@ -113,7 +140,22 @@ export default function Classes(props) {
                     ))}
                   </div>
                 </StyledTableCell>
-                <StyledTableCell>{item.units.length}</StyledTableCell>
+                <StyledTableCell>
+                  <div className={classes.itemsWrapper}>
+                    {item.units.map((sub_item, index) => {
+                      const dataChamp = getChampions(sub_item);
+                      return (
+                        <ChampionPopover id_champion={sub_item} key={'champ_popover_'+index}>
+                          <div>
+                            <LazyLoad height={60} offset={100}>
+                              <img className={classes.itemImage+' cost_'+dataChamp.stat.Cost} src={'/img/champions/'+dataChamp.avt} alt="img-item" width="60px"/>
+                            </LazyLoad>
+                          </div>
+                        </ChampionPopover>
+                      )
+                    })}
+                  </div>
+                </StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
