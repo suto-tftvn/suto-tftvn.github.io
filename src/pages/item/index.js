@@ -8,7 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import { getItem } from "../../until/common";
 import LazyLoad from "react-lazyload";
 import ItemPopover from "../../components/popover/ItemPopover";
-import {data_item} from '../../until/constant/items';
+import { data_item } from '../../until/constant/items';
 var _ = require("lodash");
 
 const useStyles = makeStyles((theme) => ({
@@ -27,49 +27,45 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const mapItem = [
-  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-  [9, 10, 19, 27, 34, 40, 44, 17, 18, 19],
-  [8, 11, 20, 28, 35, 41, 44, 27, 28, 0],
-  [7, 12, 21, 29, 36, 42, 44, 37, 0, 0],
-  [6, 13, 22, 30, 37, 43, 44, 0, 0, 0],
-  [5, 14, 23, 31, 38, 44, 0, 0, 0, 0],
-  [4, 15, 24, 32, 39, 0, 0, 0, 0, 0],
-  [3, 16, 25, 33, 0, 0, 0, 0, 0, 0],
-  [2, 17, 26, 0, 0, 0, 0, 0, 0, 0],
-  [1, 18, 0, 0, 0, 0, 0, 0, 0, 0],
-];
+const mapItem = [[0,1,2,3,4,5,28,29,30,31],[31,49,25,9,26,43,51,17,35,36],[30,11,54,20,15,48,50,12,19,0],[29,13,44,14,41,16,42,45,0,0],[28,38,22,37,47,10,33,0,0,0],[5,21,46,7,39,6,0,0,0,0],[4,40,24,18,23,0,0,0,0,0],[3,32,27,8,0,0,0,0,0,0],[2,53,52,0,0,0,0,0,0,0],[1,34,0,0,0,0,0,0,0,0]];
 
 export default function Item(props) {
   const classes = useStyles();
   const [itemChosen, setItemChosen] = useState(null);
 
-  const processData = async () => {
-    let list_base = _.filter(data_item, { 'type': 'base' });
-    console.log(list_base);
-    for(let i=8;i>-1;i--){
-      let x = [];
-      for(let j=0;j<(i);j++){
-        x.push([i,j]);
-        // console.log(getId([list_base[i].id,list_base[j].id]));
-      }
-      console.log(x);
-    }
-    return true;
-  }
+  // const processData = () => {
+  //   let list_base = _.filter(data_item, { 'type': 'base' });
+  //   let final_list = [[0]]
+  //   console.log(list_base);
+  //   for (let i = 9; i > 0; i--) {
+  //     let x = [];
+  //     final_list[0].push(list_base[9 - i].id);
+  //     let newLine = [list_base[i - 1].id];
+  //     for (let j = 0; j < (i); j++) {
+  //       newLine.push(getId([list_base[i - 1].id, list_base[j].id]));
+  //     }
+  //     final_list.push(newLine);
+  //   }
+  //   for (let k = 2; k < final_list.length; k++) {
+  //     let fillEmty = []
+  //     for (let j = 0; j < (10 - final_list[k].length); j++) {
+  //       fillEmty.push(0);
+  //     }
+  //     final_list[k] = [...final_list[k], ...fillEmty]
+  //   }
+  //   console.log(final_list);
+  // }
 
-  const getId = (value) => {
-    console.log(value);
-    const found = data_item.find(element => _.isEqual(element.bitem.sort(), value.sort()));
-    return found;
-  }
+  // const getId = (value) => {
+  //   let list_comnine_item = _.filter(data_item, { 'type': 'combinedItem' });
+  //   const found = list_comnine_item.find(element => _.isEqual(element.bitem.sort(), value.sort()));
+  //   return found.id;
+  // }
 
   const choseItem = (item) => {
     console.log(getItem(item));
     setItemChosen(getItem(item));
   };
-
-  processData();
 
   return (
     <div className={classes.root}>
@@ -81,7 +77,7 @@ export default function Item(props) {
                 <LazyLoad height={45}>
                   <img
                     className={classes.itemImage}
-                    src={'/img/items/'+itemChosen.icon}
+                    src={'/img/items/' + itemChosen.icon}
                     width="40px"
                     alt="img-item"
                   />
@@ -108,7 +104,7 @@ export default function Item(props) {
                           <LazyLoad height={45}>
                             <img
                               className={classes.itemImage}
-                              src={'/img/items/'+getItem(item).icon}
+                              src={'/img/items/' + getItem(item).icon}
                               width="90%"
                               alt="img-item"
                               onClick={() => choseItem(item)}
@@ -135,7 +131,7 @@ export default function Item(props) {
                           <LazyLoad height={45}>
                             <img
                               className={classes.itemImage}
-                              src={'/img/items/'+getItem(item).icon}
+                              src={'/img/items/' + getItem(item).icon}
                               width="90%"
                               alt="img-item"
                               onClick={() => choseItem(item)}
@@ -165,7 +161,7 @@ export default function Item(props) {
                           <LazyLoad height={45}>
                             <img
                               className={classes.itemImage}
-                              src={'/img/items/'+getItem(item2).icon}
+                              src={'/img/items/' + getItem(item2).icon}
                               width="100%"
                               alt="img-item"
                               onClick={() => choseItem(item2)}
