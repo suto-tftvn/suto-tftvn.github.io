@@ -149,12 +149,21 @@ export default function ChampionPopover(props) {
     setAnchorEl(null);
   };
 
+  // useEffect(() => {
+  //   console.log('didmount');
+  //   if (props.class !== 0) {
+  //     let newData = getChampions(props.id_champion);
+  //     setChampion(newData);
+  //   }
+  // }, []);
+
   useEffect(() => {
+    // console.log('will recpice props');
     if (props.class !== 0) {
       let newData = getChampions(props.id_champion);
       setChampion(newData);
     }
-  }, []);
+  }, [props]);
 
   const open = Boolean(anchorEl);
 
