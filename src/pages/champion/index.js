@@ -243,9 +243,8 @@ const useStyles = makeStyles((theme) => ({
       display:'flex', 
       flexWrap: 'wrap',
       alignItems:'center',
-      backgroundColor: '#dcedc8',
+      backgroundColor: '#e8f5e9',
       padding: '5px',
-      borderRadius: '0px 5px 5px',
       marginTop: '10px'
     },
     '& .champion_avt': {
@@ -564,15 +563,17 @@ export default function Champion(props) {
                   >
                     <div key={"champions-" + index}>
                       <LazyLoad height={60} offset={100}>
-                        <img
-                          className={
-                            classes.itemImage + " cost_" + item.stat.Cost
-                          }
-                          src={"/img/champions/" + item.avt}
-                          alt="avt-champion"
-                          width="50px"
-                          onClick={() => setDataChosen(item)}
-                        />
+                        <a href="#champion_detail">
+                          <img
+                            className={
+                              classes.itemImage + " cost_" + item.stat.Cost
+                            }
+                            src={"/img/champions/" + item.avt}
+                            alt="avt-champion"
+                            width="50px"
+                            onClick={() => setDataChosen(item)}
+                          />
+                        </a>
                       </LazyLoad>
                     </div>
                   </ChampionPopover>
@@ -585,7 +586,7 @@ export default function Champion(props) {
           <div>
             {dataChosen && !_.isEmpty(dataChosen) && (
               <Fragment>
-                <div className={classes.content_detail}>
+                <div className={classes.content_detail} id="champion_detail">
                   <div className={classes.title_detail + " cost_"+dataChosen.stat.Cost}>
                     <img
                       src={
@@ -739,7 +740,7 @@ export default function Champion(props) {
                                   return (
                                     <div key={'champion_item_'+index} style={{maxWidth: 'calc(10% - 5px)', paddingRight: '5px'}}>
                                       <LazyLoad height={60} offset={100} style={{maxWidth: 'calc(10% - 5px)'}}>
-                                        <img onClick={() => setDataChosen(champions_data)} className={"champion_avt"} src={"/img/champions/" + champions_data.avt} alt="champion-avt" width="100%"/>
+                                        <a href="#champion_detail"><img onClick={() => setDataChosen(champions_data)} className={"champion_avt"} src={"/img/champions/" + champions_data.avt} alt="champion-avt" width="100%"/></a>
                                       </LazyLoad>
                                     </div>
                                   )
@@ -781,7 +782,7 @@ export default function Champion(props) {
                                   return (
                                     <div key={'champion_item_'+index} style={{maxWidth: 'calc(10% - 5px)', paddingRight: '5px'}}>
                                       <LazyLoad height={60} offset={100} style={{maxWidth: 'calc(10% - 5px)'}}>
-                                        <img onClick={() => setDataChosen(champions_data)} className={"champion_avt"} src={"/img/champions/" + champions_data.avt} alt="champion-avt" width="100%"/>
+                                        <a href="#champion_detail"><img onClick={() => setDataChosen(champions_data)} className={"champion_avt"} src={"/img/champions/" + champions_data.avt} alt="champion-avt" width="100%"/></a>
                                       </LazyLoad>
                                     </div>
                                   )

@@ -8,7 +8,9 @@ import { Link } from "react-router-dom";
 // import IconButton from '@material-ui/core/IconButton';
 // import MenuIcon from '@material-ui/icons/Menu';
 // import { Redirect } from 'react-router';
-import { useRouter } from "../../until/hook/useRouter"
+import { useRouter } from "../../until/hook/useRouter";
+import Container from "@material-ui/core/Container";
+import Hidden from '@material-ui/core/Hidden';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,23 +62,27 @@ export default function Header(props) {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            <Link to='/' className={classes.logo}>
-              TFTVN
-            </Link>
-          </Typography>
-          {/* <Button color="secondary" variant="contained">Đội hình</Button> */}
-          {/* <Button color="secondary" variant="contained">Roll Giả lập</Button> */}
-          {/* <Button color="secondary" variant="contained">Tướng</Button> */}
-          {/* <Button color="secondary" variant="contained">Trang bị</Button> */}
-          <Link className={classes.menuItem} to='/thu-vien'>Đội hình</Link>
-          <Link className={classes.menuItem + ' ' +(checkRouter('/xep-team') ? classes.menuItemActive : '')} to='/xep-team'>Xếp team</Link>
-          <Link className={classes.menuItem + ' ' +(checkRouter('/tuong') ? classes.menuItemActive : '')} to='/tuong'>Tướng</Link>
-          <Link className={classes.menuItem + ' ' +(checkRouter('/trang-bi') ? classes.menuItemActive : '')} to='/trang-bi'>Trang bị</Link>
-          <Link className={classes.menuItem + ' ' +(checkRouter('/thu-vien') ? classes.menuItemActive : '')} to='/thu-vien/tuong'>Thư viện</Link>
-          {/* <Button color="secondary" variant="contained">Changelog</Button> */}
-        </Toolbar>
+          <Hidden smDown>
+            <Container maxWidth="lg">
+            <Toolbar>
+              <Typography variant="h6" className={classes.title}>
+                <Link to='/' className={classes.logo}>
+                  TFTVN
+                </Link>
+              </Typography>
+              <Link className={classes.menuItem} to='/thu-vien'>Đội hình</Link>
+              <Link className={classes.menuItem + ' ' +(checkRouter('/xep-team') ? classes.menuItemActive : '')} to='/xep-team'>Xếp team</Link>
+              <Link className={classes.menuItem + ' ' +(checkRouter('/tuong') ? classes.menuItemActive : '')} to='/tuong'>Tướng</Link>
+              <Link className={classes.menuItem + ' ' +(checkRouter('/trang-bi') ? classes.menuItemActive : '')} to='/trang-bi'>Trang bị</Link>
+              <Link className={classes.menuItem + ' ' +(checkRouter('/thu-vien') ? classes.menuItemActive : '')} to='/thu-vien/tuong'>Thư viện</Link>
+            </Toolbar>
+            </Container>
+          </Hidden>
+          <Hidden mdUp>
+            <Toolbar>
+              Menu  mobile
+            </Toolbar>
+          </Hidden>
       </AppBar>
     </div>
   );

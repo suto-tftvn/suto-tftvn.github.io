@@ -24,8 +24,8 @@ export default function Layout(props) {
   return (
     <React.Fragment>
       <ThemeProvider theme={theme}>
-        <Container fixed>
-          <Header router={props.route} />
+        <Header router={props.route} />
+        <Container maxWidth="lg">
           <div style={{height:'150px'}}>
 
           </div>
