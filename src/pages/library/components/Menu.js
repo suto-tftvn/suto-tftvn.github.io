@@ -21,11 +21,30 @@ const useStyles = makeStyles((theme) => ({
       marginBottom:'5px'
     },
     item: {
-      // color:'inherit',
+      position: 'relative',
+      overflow: 'hidden',
       "&:hover": {
-        backgroundColor: '#2196f3',
         textDecoration: 'underline',
-        color:'#fff'
+        color:'#fff',
+      },
+      "&:hover::after": {
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        transition: 'all 0.5s'
+      },
+      '&::after': {
+        top: 0,
+        bottom: 0,
+        left: "-100%",
+        right: "100%",
+        content: "''",
+        background: '#2196f3',
+        position: 'absolute',
+        zIndex: '-1',
+        padding: '0.85em 0.75em',
+        display: 'block',
       }
     },
     selected: {
@@ -37,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Menu(props) {
     const classes = useStyles();
     const router = useRouter();
-    console.log(router);
+    // console.log(router);
 
     return (
         <div className={classes.root}>

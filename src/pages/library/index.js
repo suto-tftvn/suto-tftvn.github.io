@@ -24,10 +24,10 @@ export default function Library(props) {
     return (
         <div className={classes.root}>
             <Grid container spacing={3}>
-                <Grid item xs={12} sm={3}>
+                <Grid item xs={12} sm={12} md={3}>
                     <Menu/>
                 </Grid>
-                <Grid item xs={12} sm={9} style={{borderLeft: '1px solid #90caf9'}}>
+                <Grid item xs={12} sm={12}  md={9} style={{borderLeft: '1px solid #90caf9'}}>
                     {renderRoutes(props.route.routes, { someProp: 'these extra props are optional' })}
                 </Grid>
             </Grid>

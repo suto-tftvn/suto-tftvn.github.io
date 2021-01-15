@@ -14,7 +14,8 @@ import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        backgroundImage: 'linear-gradient(-135deg, rgba(0,0,0,0), rgba(0,0,0,0), #90caf9)',
+        background: 'linear-gradient(50deg, #dcedc8 60%,transparent 51%) top left/80% calc(100%)',
+        backgroundRepeat: 'no-repeat',
         marginBottom: '5px',
         padding: '0 10px',
         display: 'flex',
