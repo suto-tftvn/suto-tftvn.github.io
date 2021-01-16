@@ -270,7 +270,7 @@ export default function Champion(props) {
   
   const [data,setData] = useState(champions);
   const [dataChosen,setDataChosen] = useState(champions[0]);
-  const [filterStatus, setFilterStatus] = useState([true,true,true]);
+  const [filterStatus, setFilterStatus] = useState([true,false,false]);
   const [listCostStatus, setListCostStatus] = useState([]);
   const [listOriginStatus, setListOriginStatus] = useState([]);
   const [listClassesStatus, setListClassesStatus] = useState([]);

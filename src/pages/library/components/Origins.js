@@ -11,6 +11,7 @@ import TitleContent from "./TitleContent";
 import ChampionPopover from '../../../components/popover/ChampionPopover';
 import {getChampions} from '../../../until/common';
 import LazyLoad from 'react-lazyload';
+import Hidden from '@material-ui/core/Hidden';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -106,7 +107,9 @@ export default function Origins(props) {
             <TableRow>
               <StyledTableCell>Tộc</StyledTableCell>
               <StyledTableCell>Sức mạnh</StyledTableCell>
-              <StyledTableCell>Tướng</StyledTableCell>
+              <Hidden xsDown>
+                <StyledTableCell>Tướng</StyledTableCell>
+              </Hidden>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -119,10 +122,12 @@ export default function Origins(props) {
                       alt="icon-origin"
                       src={"/img/origins/" + item.icon}
                     />
-                    <div>{item.name}</div>
+                    <Hidden xsDown>
+                      <div>{item.name}</div>
+                    </Hidden>
                   </div>
                 </StyledTableCell>
-                <StyledTableCell width="40%">
+                <StyledTableCell>
                   <div>
                     <div className={classes.descriptionWrapper}>
                       {item.desc}
@@ -140,7 +145,8 @@ export default function Origins(props) {
                     ))}
                   </div>
                 </StyledTableCell>
-                <StyledTableCell>
+                <Hidden xsDown>
+                <StyledTableCell width="40%">
                   <div className={classes.itemsWrapper}>
                     {item.units.map((sub_item, index) => {
                       const dataChamp = getChampions(sub_item);
@@ -156,6 +162,7 @@ export default function Origins(props) {
                     })}
                   </div>
                 </StyledTableCell>
+                </Hidden>
               </StyledTableRow>
             ))}
           </TableBody>

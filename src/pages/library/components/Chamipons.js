@@ -9,8 +9,9 @@ import TableRow from '@material-ui/core/TableRow';
 import {champions} from '../../../until/constant/champions';
 import TitleContent from './TitleContent';
 import {getOriginName,getOriginIcon,getClassName,getClassIcon} from '../../../until/common';
-import OriginPopover from '../../../components/popover/OriginPopover'
-import ClassPopover from '../../../components/popover/ClassPopover'
+import OriginPopover from '../../../components/popover/OriginPopover';
+import ClassPopover from '../../../components/popover/ClassPopover';
+import Hidden from '@material-ui/core/Hidden';
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -45,7 +46,11 @@ const useStyles = makeStyles((theme) => ({
         '& img': {
             width: '60px',
             margin: '10px',
-            borderRadius: '5px'
+            borderRadius: '5px',
+            [theme.breakpoints.down('xs')]: {
+                width: '40px',
+                margin: '5px',
+            },
         },
         '& .cost_1':{
             border: '2px #9e9e9e solid'
@@ -107,7 +112,9 @@ export default function Champions(props) {
                                 <StyledTableCell component="th" scope="row" width="20%">
                                     <div className={classes.iconWrapper}>
                                         <img className={'cost_'+item.stat.Cost}  alt="avatar-chamipon" src={'/img/champions/'+item.avt}/>
-                                        <div>{item.name}</div>
+                                        <Hidden xsDown>
+                                            <div>{item.name}</div>
+                                        </Hidden>
                                     </div>
                                 </StyledTableCell>
                                 <StyledTableCell width="30%">
@@ -116,7 +123,9 @@ export default function Champions(props) {
                                             <ClassPopover class={sub_item || 0} key={'class-popover-'+index}>
                                             <div className={classes.descriptionWrapperBuff}>
                                                 <img src={'/img/classes/'+getClassIcon(sub_item)} alt="icon_class"/>
-                                                <div className={classes.nameOrigin}>{getClassName(sub_item)}</div>
+                                                <Hidden xsDown>
+                                                    <div className={classes.nameOrigin}>{getClassName(sub_item)}</div>
+                                                </Hidden>
                                             </div>
                                             </ClassPopover>
                                         ))
@@ -128,7 +137,9 @@ export default function Champions(props) {
                                             <OriginPopover origins={sub_item || 0} key={'origin-popover-'+index}>
                                                 <div className={classes.descriptionWrapperBuff}>
                                                     <img src={'/img/origins/'+getOriginIcon(sub_item)} alt="icon_origin"/>
-                                                    <div className={classes.nameOrigin}>{getOriginName(sub_item)}</div>
+                                                    <Hidden xsDown>
+                                                        <div className={classes.nameOrigin}>{getOriginName(sub_item)}</div>
+                                                    </Hidden>
                                                 </div>
                                             </OriginPopover>
                                         ))

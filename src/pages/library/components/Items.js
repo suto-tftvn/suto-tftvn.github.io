@@ -12,6 +12,7 @@ import TitleContent from './TitleContent';
 import ItemPopover from '../../../components/popover/ItemPopover'
 import {getItem} from '../../../until/common';
 import LazyLoad from 'react-lazyload';
+import Hidden from '@material-ui/core/Hidden';
 var _ = require("lodash");
 
 const StyledTableCell = withStyles((theme) => ({
@@ -65,7 +66,10 @@ const useStyles = makeStyles((theme) => ({
     itemImage: {
         border: '2px #a2cf6e solid',
         borderRadius: '10px',
-        margin: '5px'
+        margin: '5px',
+        [theme.breakpoints.down('xs')]: {
+            width: '50px',
+        }
     }
 }));
 
@@ -98,8 +102,10 @@ export default function Items(props) {
                         <TableRow>
                             <StyledTableCell>Trang bị</StyledTableCell>
                             <StyledTableCell>Sức mạnh</StyledTableCell>
+                            <Hidden xsDown>
                             <StyledTableCell>Đồ lớn</StyledTableCell>
                             <StyledTableCell>Đồ nhỏ</StyledTableCell>
+                            </Hidden>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -111,12 +117,15 @@ export default function Items(props) {
                                         <LazyLoad height={64}>
                                             <img className={classes.itemImage} alt="avatar-item" src={'/img/items/'+item.icon}/>
                                         </LazyLoad>
-                                        <div>{item.name}</div>
+                                        <Hidden xsDown>
+                                            <div>{item.name}</div>
+                                        </Hidden>
                                     </div>
                                 </StyledTableCell>
-                                <StyledTableCell width="20%">
+                                <StyledTableCell>
                                     {item.desc}
                                 </StyledTableCell>
+                                <Hidden xsDown>
                                 <StyledTableCell width="40%">
                                     <div className={classes.itemsWrapper}>
                                         {
@@ -149,6 +158,7 @@ export default function Items(props) {
                                         }
                                     </div>
                                 </StyledTableCell>
+                                </Hidden>
                             </StyledTableRow>
                         )})}
                     </TableBody>

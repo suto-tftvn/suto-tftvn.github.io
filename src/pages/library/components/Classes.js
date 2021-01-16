@@ -11,6 +11,7 @@ import TitleContent from "./TitleContent";
 import ChampionPopover from '../../../components/popover/ChampionPopover';
 import {getChampions} from '../../../until/common';
 import LazyLoad from 'react-lazyload';
+import Hidden from '@material-ui/core/Hidden';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -106,7 +107,9 @@ export default function Classes(props) {
             <TableRow>
               <StyledTableCell>Hệ</StyledTableCell>
               <StyledTableCell>Sức mạnh</StyledTableCell>
-              <StyledTableCell>Tướng</StyledTableCell>
+              <Hidden xsDown>
+                <StyledTableCell>Tướng</StyledTableCell>
+              </Hidden>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -119,7 +122,9 @@ export default function Classes(props) {
                       alt="icon-class"
                       src={"/img/classes/" + item.icon}
                     />
+                    <Hidden xsDown>
                     <div>{item.name}</div>
+                    </Hidden>
                   </div>
                 </StyledTableCell>
                 <StyledTableCell width="40%">
@@ -140,6 +145,7 @@ export default function Classes(props) {
                     ))}
                   </div>
                 </StyledTableCell>
+                <Hidden xsDown>
                 <StyledTableCell>
                   <div className={classes.itemsWrapper}>
                     {item.units.map((sub_item, index) => {
@@ -156,6 +162,7 @@ export default function Classes(props) {
                     })}
                   </div>
                 </StyledTableCell>
+                </Hidden>
               </StyledTableRow>
             ))}
           </TableBody>

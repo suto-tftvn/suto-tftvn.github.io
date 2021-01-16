@@ -19,21 +19,32 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: '5px',
         padding: '0 10px',
         display: 'flex',
-        alignItems: 'center'
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        [theme.breakpoints.down('xs')]: {
+            padding: '0',
+            background: 'none'
+        },
     },
     title: {
         // borderBottom: '1px solid #90caf9',
         fontSize: '18px',
         fontWeight: 'bold',
-        width: '60%'
+        width: '60%',
         // marginBottom:'5px',
-        // padding:'10px'
+        // padding:'10px',
+        [theme.breakpoints.down('xs')]: {
+            width: '100%',
+        },
     },
     searchBox: {
-        width: '40%'
+        width: '40%',
+        [theme.breakpoints.down('xs')]: {
+            width: '100%',
+            marginTop: '10px'
+        },
     },
     textFieldSearch: {
-        // width:'100%'
         margin: '0px'
     }
 }));

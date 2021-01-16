@@ -166,7 +166,7 @@ export default function Header(props) {
       <AppBar position="static">
           <Hidden smDown>
             <Container maxWidth="lg">
-            <Toolbar>
+            <Toolbar id="back-to-top-anchor">
               <Typography variant="h6" className={classes.title}>
                 <Link to='/' className={classes.logo}>
                   TFTVN
@@ -181,7 +181,7 @@ export default function Header(props) {
             </Container>
           </Hidden>
           <Hidden mdUp>
-            <Toolbar>
+            <Toolbar id="back-to-top-anchor">
               <Typography variant="h6" className={classes.title}>
                 <Link to='/' className={classes.logo}>
                   TFTVN

@@ -23,33 +23,40 @@ const useStyles = makeStyles((theme) => ({
     item: {
       position: 'relative',
       overflow: 'hidden',
-      "&:hover": {
-        textDecoration: 'underline',
-        color:'#fff',
+      [theme.breakpoints.up('sm')]: {
+        "&:hover": {
+          textDecoration: 'underline',
+          color:'#fff',
+        },
+        "&:hover::after": {
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+          transition: 'all 0.5s'
+        },
+        '&::after': {
+          top: 0,
+          bottom: 0,
+          left: "-100%",
+          right: "100%",
+          content: "''",
+          background: '#2196f3',
+          position: 'absolute',
+          zIndex: '-1',
+          padding: '0.85em 0.75em',
+          display: 'block',
+        }
       },
-      "&:hover::after": {
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0,
-        transition: 'all 0.5s'
-      },
-      '&::after': {
-        top: 0,
-        bottom: 0,
-        left: "-100%",
-        right: "100%",
-        content: "''",
-        background: '#2196f3',
-        position: 'absolute',
-        zIndex: '-1',
-        padding: '0.85em 0.75em',
-        display: 'block',
-      }
     },
     selected: {
       borderLeft: '4px solid #2196f3',
-      paddingLeft: '6px !important'
+      paddingLeft: '6px !important',
+      [theme.breakpoints.down('xs')]: {
+        background: '#2196f3',
+        textDecoration: 'underline',
+        color:'#fff',
+      }
     }
   }));
 
