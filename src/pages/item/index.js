@@ -8,6 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import { getItem } from "../../until/common";
 import LazyLoad from "react-lazyload";
 import ItemPopover from "../../components/popover/ItemPopover";
+import Hidden from '@material-ui/core/Hidden';
 import { data_item } from '../../until/constant/items';
 var _ = require("lodash");
 
@@ -25,6 +26,67 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "10px",
     // margin: '5px'
   },
+  mapItemWrapper: {
+    display: 'grid',
+    gridTemplateColumns: '10% 10% 10% 10% 10% 10% 10% 10% 10% 10%'
+  },
+  detailItemCombindWrapper: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    marginTop: '5px',
+    paddingTop: '5px',
+    borderTop: '1px #689f38 solid',
+  },
+  groupImgItemDetail: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    flexWrap: 'wrap',
+    width: '30%',
+    '& .baseItem':{
+      position: 'relative',
+      width: '50%'
+    },
+    '& .baseItem::before':{
+      top: '25%',
+      left: '-35%',
+      content: "'+'",
+      position: 'absolute',
+      width: '40%',
+      height: '40%',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      color: '#0d47a1',
+      fontSize: '26px',
+      opacity: '0.8'
+    },
+    '& .baseItem::after':{
+      top: '25%',
+      right: '-15%',
+      content: "'='",
+      position: 'absolute',
+      width: '40%',
+      height: '40%',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      color: 'white',
+      fontSize: '26px',
+      opacity: '0.8'
+    },
+    '& img': {
+      width: '90%'
+    }
+  },
+  groupTextItemDetail: {
+    width: '65%',
+    '& p:first-child': {
+      fontWeight: 'bold',
+    },
+    '& p': {
+      margin: 0
+    }
+  }
 }));
 
 const mapItem = [[0,1,2,3,4,5,28,29,30,31],[31,49,25,9,26,43,51,17,35,36],[30,11,54,20,15,48,50,12,19,0],[29,13,44,14,41,16,42,45,0,0],[28,38,22,37,47,10,33,0,0,0],[5,21,46,7,39,6,0,0,0,0],[4,40,24,18,23,0,0,0,0,0],[3,32,27,8,0,0,0,0,0,0],[2,53,52,0,0,0,0,0,0,0],[1,34,0,0,0,0,0,0,0,0]];
@@ -72,52 +134,60 @@ export default function Item(props) {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={4}>
           {itemChosen && (
-            <Grid container spacing={0}>
-              <Grid item sm={2}>
-                <LazyLoad height={45}>
-                  <img
-                    className={classes.itemImage}
-                    src={'/img/items/' + itemChosen.icon}
-                    width="40px"
-                    alt="img-item"
-                  />
-                </LazyLoad>
-              </Grid>
-              <Grid item sm={10}>
-                <b>{itemChosen.name}</b>
-                <br />
-                <b>Chỉ số</b>
-              </Grid>
-              <Grid item sm={12}>
+            <div>
+              <div>
+                <img
+                  className={classes.itemImage}
+                  src={'/img/items/' + itemChosen.icon}
+                  width="40px"
+                  alt="img-item"
+                />
+              </div>
+              <div>
+                <p>{itemChosen.name}</p>
+                <p>Chỉ số</p>
+              </div>
+              <div>
                 {itemChosen.desc}
-              </Grid>
-              <hr />
+              </div>
+              <div>
               {itemChosen.type === "base" && (
-                <Grid container spacing={1}>
-                  <Grid item sm={12}>
-                    <h3>Có thể ghép thành</h3>
-                  </Grid>
+                <div>
+                  <h3>Có thể ghép thành</h3>
                   {itemChosen.citem.map((item, index) => {
+                    let item_data = getItem(item);
+                    let x = _.indexOf(item_data.bitem, itemChosen.id);
+                    let y = x === 1 ? getItem(item_data.bitem[0]) : getItem(item_data.bitem[1]);
+                    console.log(item_data.bitem,x,y.name,y);
                     return (
-                      <Fragment key={"citem-" + index}>
-                        <Grid item sm={2}>
-                          <LazyLoad height={45}>
+                      <div key={"citem-" + index} className={classes.detailItemCombindWrapper}>
+                        <div className={classes.groupImgItemDetail}>
+                          <div className={'baseItem'}>
                             <img
                               className={classes.itemImage}
-                              src={'/img/items/' + getItem(item).icon}
-                              width="90%"
+                              src={'/img/items/' + y.icon}
+                              alt="img-item"
+                              onClick={() => choseItem(y.id)}
+                            />
+                          </div>
+                          <div style={{width:'50%'}}>
+                            <img
+                              className={classes.itemImage}
+                              src={'/img/items/' + item_data.icon}
                               alt="img-item"
                               onClick={() => choseItem(item)}
                             />
-                          </LazyLoad>
-                        </Grid>
-                        <Grid item sm={10}>
-                          <b>{getItem(item).name}</b>
-                        </Grid>
-                      </Fragment>
+                          </div>
+                        </div>
+                        <div className={classes.groupTextItemDetail}>
+                          <p>{item_data.name}</p>
+                          <p>Chỉ số</p>
+                        </div>
+                        <div>{item_data.desc}</div>
+                      </div>
                     );
                   })}
-                </Grid>
+                </div>
               )}
               {itemChosen.type === "combinedItem" && (
                 <Grid container spacing={1}>
@@ -126,7 +196,7 @@ export default function Item(props) {
                   </Grid>
                   {itemChosen.bitem.map((item, index) => {
                     return (
-                      <Fragment key={"bitem-" + index}>
+                      <div key={"bitem-" + index}>
                         <Grid item sm={2}>
                           <LazyLoad height={45}>
                             <img
@@ -141,22 +211,25 @@ export default function Item(props) {
                         <Grid item sm={10}>
                           <b>{getItem(item).name}</b>
                         </Grid>
-                      </Fragment>
+                      </div>
                     );
                   })}
                 </Grid>
               )}
-            </Grid>
+              </div>
+            </div>
           )}
         </Grid>
         <Grid item xs={12} sm={8} style={{ borderLeft: "1px solid #90caf9" }}>
           {mapItem.map((item, index) => {
             return (
-              <Grid container spacing={1} key={"item-row-" + index}>
+              <div className={classes.mapItemWrapper} key={"item-row-" + index}>
                 {mapItem[index].map((item2, index2) => {
                   return (
-                    <Grid item md={1} xs={1} key={"item-col-" + index2}>
-                      {item2 !== 0 && (
+                    <Fragment key={"item-col-" + index2}>
+                      {item2 !== 0 ? (
+                        <>
+                        <Hidden xsDown>
                         <ItemPopover item_id={item2 || 0}>
                           <LazyLoad height={45}>
                             <img
@@ -168,11 +241,24 @@ export default function Item(props) {
                             />
                           </LazyLoad>
                         </ItemPopover>
-                      )}
-                    </Grid>
+                        </Hidden>
+                        <Hidden smUp>
+                          <LazyLoad height={45}>
+                            <img
+                              className={classes.itemImage}
+                              src={'/img/items/' + getItem(item2).icon}
+                              width="100%"
+                              alt="img-item"
+                              onClick={() => choseItem(item2)}
+                            />
+                          </LazyLoad>
+                        </Hidden>
+                        </>
+                      ) : <div></div>}
+                    </Fragment>
                   );
                 })}
-              </Grid>
+              </div>
             );
           })}
         </Grid>

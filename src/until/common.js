@@ -5,7 +5,7 @@ import {champions} from './constant/champions'
 
 export const getOrigin = (id_origin) => {
     // let res = '';
-    const found = origins.find(element => element.id == id_origin);
+    const found = origins.find(element => element.id === id_origin);
     // if(found && found.name){
     //     res = found.name; 
     // }
@@ -14,7 +14,7 @@ export const getOrigin = (id_origin) => {
 
 export const getOriginName = (id_origin) => {
     let res = '';
-    const found = origins.find(element => element.id == id_origin);
+    const found = origins.find(element => element.id === id_origin);
     if(found && found.name){
         res = found.name; 
     }
@@ -23,7 +23,7 @@ export const getOriginName = (id_origin) => {
 
 export const getOriginIcon = (id_origin) => {
     let res = '';
-    const found = origins.find(element => element.id == id_origin);
+    const found = origins.find(element => element.id === id_origin);
     if(found && found.icon){
         res = found.icon; 
     }
