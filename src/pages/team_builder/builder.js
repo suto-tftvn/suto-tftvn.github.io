@@ -10,7 +10,7 @@ const style = {
 };
 
 export default function Builder() {
-  console.log(champions);
+  // console.log(champions);
   const [dustbins,setDustbins] = useState([
     {name:null,type:1},
     {name:null,type:1},
@@ -61,6 +61,17 @@ export default function Builder() {
       return;
     }
     if(type==='battleToBattle'){
+      console.log(item,type,oldIndex,newIndex);
+      if(oldIndex<0){
+        // const oldData = dustbins[newIndex];
+        setDustbins(
+          update(dustbins, {
+            [newIndex]: {
+              name: {$set: item.name}
+            },
+          }),
+        )
+      } else{
         const oldData = dustbins[newIndex];
         setDustbins(
           update(dustbins, {
@@ -72,6 +83,7 @@ export default function Builder() {
             },
           }),
         )
+      }
     } 
     if (type==='draftToBattle') {
         if(oldIndex>=0){

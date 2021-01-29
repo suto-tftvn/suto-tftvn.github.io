@@ -86,6 +86,22 @@ const useStyles = makeStyles((theme) => ({
     '& p': {
       margin: 0
     }
+  },
+  groupItemTitle: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    '& img': {
+      marginRight: '5px'
+    }
+  },
+  groupImgItemBaseDetail:{
+    display: 'flex',
+    alignItems: 'flex-start',
+    flexWrap: 'wrap',
+    width: '20%',
+    '& img': {
+      width: '90%'
+    }
   }
 }));
 
@@ -134,23 +150,23 @@ export default function Item(props) {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={4}>
           {itemChosen && (
-            <div>
+            <div className={classes.groupItemTitle}>
               <div>
                 <img
                   className={classes.itemImage}
                   src={'/img/items/' + itemChosen.icon}
-                  width="40px"
+                  width="50px"
                   alt="img-item"
                 />
               </div>
-              <div>
+              <div className={classes.groupTextItemDetail}>
                 <p>{itemChosen.name}</p>
                 <p>Chỉ số</p>
               </div>
               <div>
                 {itemChosen.desc}
               </div>
-              <div>
+              <div style={{width:'100%'}}>
               {itemChosen.type === "base" && (
                 <div>
                   <h3>Có thể ghép thành</h3>
@@ -158,7 +174,6 @@ export default function Item(props) {
                     let item_data = getItem(item);
                     let x = _.indexOf(item_data.bitem, itemChosen.id);
                     let y = x === 1 ? getItem(item_data.bitem[0]) : getItem(item_data.bitem[1]);
-                    console.log(item_data.bitem,x,y.name,y);
                     return (
                       <div key={"citem-" + index} className={classes.detailItemCombindWrapper}>
                         <div className={classes.groupImgItemDetail}>
@@ -190,31 +205,32 @@ export default function Item(props) {
                 </div>
               )}
               {itemChosen.type === "combinedItem" && (
-                <Grid container spacing={1}>
-                  <Grid item sm={12}>
+                <div>
+                  {/* <div item sm={12}> */}
                     <h3>Ghép từ</h3>
-                  </Grid>
+                  {/* </div> */}
                   {itemChosen.bitem.map((item, index) => {
+                    let dataItem = getItem(item);
                     return (
-                      <div key={"bitem-" + index}>
-                        <Grid item sm={2}>
-                          <LazyLoad height={45}>
+                      <div key={"bitem-" + index} className={classes.detailItemCombindWrapper}>
+                        <div className={classes.groupImgItemBaseDetail}>
                             <img
                               className={classes.itemImage}
-                              src={'/img/items/' + getItem(item).icon}
+                              src={'/img/items/' + dataItem.icon}
                               width="90%"
                               alt="img-item"
                               onClick={() => choseItem(item)}
                             />
-                          </LazyLoad>
-                        </Grid>
-                        <Grid item sm={10}>
-                          <b>{getItem(item).name}</b>
-                        </Grid>
+                        </div>
+                        <div className={classes.groupTextItemDetail}>
+                          <p>{dataItem.name}</p>
+                          <p>Chỉ số</p>
+                        </div>
+                        <div style={{width:'100%'}}>{dataItem.desc}</div>
                       </div>
                     );
                   })}
-                </Grid>
+                </div>
               )}
               </div>
             </div>

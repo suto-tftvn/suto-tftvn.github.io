@@ -179,7 +179,7 @@ const useStyles = makeStyles((theme) => ({
     '& span': {
       display: 'flex',
       alignItems: 'center',
-      width: '15px'
+      // width: '15px'
     },
     '& img': {
       // filter: 'brightness(0.5)'

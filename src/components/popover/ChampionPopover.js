@@ -27,6 +27,26 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: "5px",
     fontWeight: "bold",
     fontSize: "18px",
+    '&.cost_1': {
+      background: 'linear-gradient(-125deg, #616161 50%,transparent 50.8%) top right /100px calc(100% - 5px)',
+      backgroundRepeat: 'no-repeat'
+    },
+    '&.cost_2': {
+      background: 'linear-gradient(-125deg, #689f38 50%,transparent 50.8%) top right /100px calc(100% - 5px)',
+      backgroundRepeat: 'no-repeat'
+    },
+    '&.cost_3': {
+      background: 'linear-gradient(-125deg, #0288d1 50%,transparent 50.8%) top right /100px calc(100% - 5px)',
+      backgroundRepeat: 'no-repeat'
+    },
+    '&.cost_4': {
+      background: 'linear-gradient(-125deg, #512da8 50%,transparent 50.8%) top right /100px calc(100% - 5px)',
+      backgroundRepeat: 'no-repeat'
+    },
+    '&.cost_5': {
+      background: 'linear-gradient(-125deg, #ef6c00 50%,transparent 50.8%) top right /100px calc(100% - 5px)',
+      backgroundRepeat: 'no-repeat'
+    },
   },
   descriptionWrapper: {
     textAlign: 'justify'
@@ -71,16 +91,18 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     position: 'absolute',
-    top: '5px',
-    right: '5px',
-    fontWeight: "normal",
+    top: '15px',
+    right: '15px',
+    fontWeight: "bold",
+    color:'#fff',
     '& span': {
       display: 'flex',
       alignItems: 'center',
-      width: '15px'
+      // width: '15px'
     },
     '& img': {
-      filter: 'brightness(0.5)'
+      marginRight: '5px'
+      // filter: 'brightness(0.5)'
     }
   },
   skillTitle:{
@@ -206,7 +228,7 @@ export default function ChampionPopover(props) {
         disableRestoreFocus
       >
         <div className={classes.content}>
-          <div className={classes.title}>
+          <div className={classes.title + (dataChampion && dataChampion.stat ? ' cost_'+dataChampion.stat.Cost : ' cost_1')}>
             <img
             //   style={{ filter: "brightness(0.5)" }}
               src={
