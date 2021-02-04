@@ -5,29 +5,21 @@ import Dustbin from "./dustbin";
 import DustbinRemove from "./dustbinRemove";
 import update from "immutability-helper";
 import {champions} from "../../until/constant/champions";
-const style = {
-  width: "100%",
-};
 
 export default function Builder() {
   // console.log(champions);
-  const [dustbins,setDustbins] = useState([
-    {name:null,type:1},
-    {name:null,type:1},
-    {name:null,type:1}
-  ]);
-  const [boxes] = useState([
-    { name: 'Bottle'},
-    { name: 'Banana'},
-    { name: 'Magazine'},
-  ])
+  const rowBattel = [1,2,3,4];
+  const [dustbins,setDustbins] = useState(
+    [{champ:null,type:1},{champ:null,type:1},{champ:null,type:1},{champ:null,type:1},{champ:null,type:1},{champ:null,type:1},{champ:null,type:1}]
+  );
+  const [boxes] = useState(champions);
   const handleDrop = useCallback(
     (index, item) => {
       setDustbins(
         update(dustbins, {
           [index]: {
-            name: {
-              $set: item.name,
+            champ: {
+              $set: item.champ,
             },
             type: {
               $set: item.type==='box' ? 2 : 1,
@@ -44,16 +36,17 @@ export default function Builder() {
   }
 
   const moveOnBattle = (index,item) => {
-    console.log('move battle');
+    console.log(item);
     return {type:'battleToBattle', pos:index}
   }
 
   const callbackUpdateBattle = (item,type,oldIndex,newIndex) => {
+    // console.log(item);
     if(type === 'remove' && oldIndex>=0){
       setDustbins(
         update(dustbins, {
           [oldIndex]: {
-            name: {$set: null},
+            champ: {$set: null},
             type: {$set: 1},
           }
         }),
@@ -61,13 +54,13 @@ export default function Builder() {
       return;
     }
     if(type==='battleToBattle'){
-      console.log(item,type,oldIndex,newIndex);
+      // console.log(item,type,oldIndex,newIndex);
       if(oldIndex<0){
         // const oldData = dustbins[newIndex];
         setDustbins(
           update(dustbins, {
             [newIndex]: {
-              name: {$set: item.name}
+              champ: {$set: item.champ}
             },
           }),
         )
@@ -76,10 +69,10 @@ export default function Builder() {
         setDustbins(
           update(dustbins, {
             [oldIndex]: {
-              name: {$set: oldData.name}
+              champ: {$set: oldData.champ}
             },
             [newIndex]: {
-              name: {$set: item.name,}
+              champ: {$set: item.champ}
             },
           }),
         )
@@ -90,11 +83,11 @@ export default function Builder() {
           setDustbins(
             update(dustbins, {
               [oldIndex]: {
-                name: {$set: null},
+                champ: {$set: null},
                 type: {$set: 1},
               },
               [newIndex]: {
-                name: {$set: item.name,},
+                champ: {$set: item.champ},
                 type: {$set: 2},
               },
             }),
@@ -105,31 +98,45 @@ export default function Builder() {
 
   return (
     <div>
-      <div style={{ overflow: "hidden", clear: "both" }}>
+      <div style={{ overflow: "hidden", clear: "both", textAlign:'initial', paddingBottom:'35px'}}>
         {
-          dustbins.map((item,index) => {
-            if(item.type===1){
-              return <Dustbin name={item.name} onDrop={(item) => handleDrop(index, item)} pos={index} type_pos='battle' />
-            } else if (item.type===2){
-              return <Box 
-              name={item.name} 
-              type_pos='battle' 
-              pos={index} 
-              updateData={callbackUpdateBattle}
-              onDrop={(item) => moveOnBattle(index,item)}
-              />
-            } else {
-              return null;
-            }
+          rowBattel.map((row_item,index) => {
+            return (
+              <div style={{marginBottom:'-3%'}}>
+                {
+                  index%2!==0 && <div style={{display:'inline-block', width:'6.5%', maxWidth:'100px'}}></div>
+                }
+                {
+                  dustbins.map((item,index) => {
+                    if(item.type===1){
+                      // console.log(1,item);
+                      return <Dustbin data={item} onDrop={(item) => handleDrop(index, item)} pos={index} type_pos='battle' key={'battle_empty_'+index}/>
+                    } else if (item.type===2){
+                      // console.log(2,item);
+                      return <Box 
+                      champ={item.champ}
+                      type_pos='battle'
+                      key={'battle_full_'+index} 
+                      pos={index} 
+                      updateData={callbackUpdateBattle}
+                      onDrop={(item) => moveOnBattle(index,item)}
+                      />
+                    } else {
+                      return null;
+                    }
+                  })
+                }
+              </div>
+            )
           })
-        }
+      }
       </div>
-      <div style={{ overflow: "hidden", clear: "both" }}>
+      <div style={{ overflow: "hidden", clear: "both", width: "70%" }}>
         <DustbinRemove onDrop={(item) => handleDropRemove(item)}>
           {
             boxes.map((item, index) => (
               <Box
-                name={item.name}
+                champ={item}
                 type_pos='draft'
                 key={index}
                 pos={-2}
@@ -138,6 +145,9 @@ export default function Builder() {
             ))
           }
         </DustbinRemove>
+      </div>
+      <div>
+        item
       </div>
     </div>
   );

@@ -4,14 +4,15 @@ import ItemTypes from "./ItemTypes";
 const style = {
   // height: "12rem",
   // width: "12rem",
-  marginRight: "1.5rem",
-  marginBottom: "1.5rem",
+  // marginRight: "1.5rem",
+  // marginBottom: "1.5rem",
   color: "red",
   // padding: "1rem",
   // textAlign: "center",
   // fontSize: "1rem",
   // lineHeight: "normal",
-  // float: "left",
+  float: "left",
+  padding: "5px 0 0 5px"
 };
 const DustbinRemove = (props) => {
   const [{ canDrop, isOver }, drop] = useDrop({
@@ -31,7 +32,6 @@ const DustbinRemove = (props) => {
   }
   return (
     <div ref={drop} style={{ ...style, backgroundColor }}>
-      {isActive ? 'Release to drop' : 'Drag a box here'}
       {props.children}
     </div>
   );

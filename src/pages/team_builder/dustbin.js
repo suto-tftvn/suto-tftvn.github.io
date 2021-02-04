@@ -11,9 +11,11 @@ const style = {
   // textAlign: "center",
   // fontSize: "1rem",
   // lineHeight: "normal",
-  float: "left",
-  width:'100px',
-  height:'100px'
+  // float: "left",
+  width:'13%',
+  height:'13%',
+  maxWidth:'100px',
+  maxHeight:'100px'
 };
 const Dustbin = (props) => {
   const [{ canDrop, isOver }, drop] = useDrop({
@@ -31,6 +33,7 @@ const Dustbin = (props) => {
   } else if (canDrop) {
     backgroundColor = "darkkhaki";
   }
+  // console.log(props);
   return (
     // <div ref={drop} style={{ ...style, backgroundColor }}>
     //   {props.name}
@@ -41,7 +44,7 @@ const Dustbin = (props) => {
         </pattern>
       </defs>
       <polygon points="50 1 95 25 95 75 50 99 5 75 5 25" fill={backgroundColor} />
-      <text font-size="15" x="50" y="90" textAnchor="middle">{props.name}</text>
+      {/* <text font-size="15" x="50" y="90" textAnchor="middle">{props.champ}</text> */}
     </svg>
   );
 };
