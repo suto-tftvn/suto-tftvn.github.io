@@ -53,8 +53,28 @@ const useStyles = makeStyles((theme) => ({
       maxWidth:'100px',
       maxHeight:'100px',
       cursor: 'move',
+      '& .hex_t1':{
+        strokeWidth: 2,
+        stroke: '#9e9e9e'
+      },
+      '& .hex_t2':{
+        strokeWidth: 2,
+        stroke: '#a2cf6e'
+      },
+      '& .hex_t3':{
+        strokeWidth: 2,
+        stroke: '#2196f3'
+      },
+      '& .hex_t4':{
+        strokeWidth: 2,
+        stroke: '#e040fb'
+      },
+      '& .hex_t5':{
+        strokeWidth: 2,
+        stroke: '#e65100'
+      }
     }
-  },
+  }
 }));
 
 const Box = (props) => {
@@ -96,8 +116,8 @@ const Box = (props) => {
                 <image href={"/img/champions/"+champ.avt} x="0" width="100%" height="100%" />
               </pattern>
             </defs>
-            <polygon points="50 1 95 25 95 75 50 99 5 75 5 25" fill={"url(#img"+champ.id+")"}/>
-            {/* <text font-size="15" x="50" y="90" textAnchor="middle">{champ.name}</text> */}
+            <polygon className={'hex_t'+champ.stat.Cost} points="50 1 95 25 95 75 50 99 5 75 5 25" fill={"url(#img"+champ.id+")"}/>
+            {/* <text font-size="20" x="50" y="80" textAnchor="middle" style={{fill: 'white', stroke: 'black', strokeWidth: 1, fontWeight:'bold'}} >{champ.name}</text> */}
           </svg>
         </div> 
         :

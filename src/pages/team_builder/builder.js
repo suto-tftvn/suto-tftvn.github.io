@@ -1,16 +1,21 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useTheme } from "react";
 import Card from "./card";
 import Box from "./box";
 import Dustbin from "./dustbin";
 import DustbinRemove from "./dustbinRemove";
 import update from "immutability-helper";
 import {champions} from "../../until/constant/champions";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 export default function Builder() {
   // console.log(champions);
   const rowBattel = [1,2,3,4];
+  const cellBattel = [1,2,3,4,5,6,7];
   const [dustbins,setDustbins] = useState(
-    [{champ:null,type:1},{champ:null,type:1},{champ:null,type:1},{champ:null,type:1},{champ:null,type:1},{champ:null,type:1},{champ:null,type:1}]
+    [{champ:null,type:1},{champ:null,type:1},{champ:null,type:1},{champ:null,type:1},{champ:null,type:1},{champ:null,type:1},{champ:null,type:1},
+      {champ:null,type:1},{champ:null,type:1},{champ:null,type:1},{champ:null,type:1},{champ:null,type:1},{champ:null,type:1},{champ:null,type:1},
+      {champ:null,type:1},{champ:null,type:1},{champ:null,type:1},{champ:null,type:1},{champ:null,type:1},{champ:null,type:1},{champ:null,type:1},
+      {champ:null,type:1},{champ:null,type:1},{champ:null,type:1},{champ:null,type:1},{champ:null,type:1},{champ:null,type:1},{champ:null,type:1}]
   );
   const [boxes] = useState(champions);
   const handleDrop = useCallback(
@@ -96,17 +101,41 @@ export default function Builder() {
       }
   }
 
+  const matches = useMediaQuery('(min-width:768px)');
+
   return (
     <div>
       <div style={{ overflow: "hidden", clear: "both", textAlign:'initial', paddingBottom:'35px'}}>
         {
           rowBattel.map((row_item,index) => {
             return (
-              <div style={{marginBottom:'-3%'}}>
+              <div style={{marginBottom: matches ? '-25px' : '-3%'}}>
                 {
-                  index%2!==0 && <div style={{display:'inline-block', width:'6.5%', maxWidth:'100px'}}></div>
+                  index%2!==0 && <div style={{display:'inline-block', width:'6.5%', maxWidth:'50px'}}></div>
                 }
                 {
+                  cellBattel.map((cell_item,c_index) => {
+                    let n_index = index*7 + c_index;
+                    let item = dustbins[n_index]
+                    if(item.type===1){
+                      // console.log(1,item);
+                      return <Dustbin data={item} onDrop={(item) => handleDrop(n_index, item)} pos={n_index} type_pos='battle' key={'battle_empty_'+n_index}/>
+                    } else if (item.type===2){
+                      // console.log(2,item);
+                      return <Box 
+                      champ={item.champ}
+                      type_pos='battle'
+                      key={'battle_full_'+n_index} 
+                      pos={n_index} 
+                      updateData={callbackUpdateBattle}
+                      onDrop={(item) => moveOnBattle(n_index,item)}
+                      />
+                    } else {
+                      return null;
+                    }
+                  })
+                }
+                {/* {
                   dustbins.map((item,index) => {
                     if(item.type===1){
                       // console.log(1,item);
@@ -125,7 +154,7 @@ export default function Builder() {
                       return null;
                     }
                   })
-                }
+                } */}
               </div>
             )
           })

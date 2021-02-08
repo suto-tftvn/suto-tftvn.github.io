@@ -43,7 +43,7 @@ const Dustbin = (props) => {
         <pattern id="99" patternUnits="userSpaceOnUse" width="100" height="100">
         </pattern>
       </defs>
-      <polygon points="50 1 95 25 95 75 50 99 5 75 5 25" fill={backgroundColor} />
+      <polygon points="50 1 95 25 95 75 50 99 5 75 5 25" fill={backgroundColor} style={{strokeWidth: 2,stroke: '#999'}}/>
       {/* <text font-size="15" x="50" y="90" textAnchor="middle">{props.champ}</text> */}
     </svg>
   );
