@@ -4,7 +4,7 @@ export default function Home(props) {
   console.log(props);
   return (
       <div>
-          home
+          home test github action
       </div>
   );
 }
