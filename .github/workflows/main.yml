@@ -14,10 +14,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Deploy
-        run: |
-          npm install
-          npm run deploy
+      - name: Install packages
+        run: npm install
+      - name: Build
+        run: npm run build
+        env:
+          CI: false
       # - name: Build and Deploy
       #   uses: JamesIves/github-pages-deploy-action@releases/v3
       #   with:
